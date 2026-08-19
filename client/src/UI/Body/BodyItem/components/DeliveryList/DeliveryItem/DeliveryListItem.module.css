@@ -1,0 +1,75 @@
+.DeliveryListItem {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    justify-content: flex-start;
+    margin: 5px 0 5px 0;
+    border-radius: var(--radius-md);
+    background: var(--color-black);
+    transition: 300ms;
+}
+
+.DeliveryListItem:hover {
+    scale: 1.02;
+    cursor: pointer;
+}
+
+.DeliveryLogo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50px;
+}
+
+.DeliveryLogo img {
+    position: relative;
+    height: 70%;
+    width: 70%;
+    border-radius: var(--radius-sm);
+}
+
+.DeliveryInfo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    flex: 1;
+}
+
+.DeliveryInfo h2 {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    font-size: var(--text-md);
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-bold);
+}
+
+.DeliveryName, .DeliveryDate, .DeliveryPrice {
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.DeliveryName {
+    width: 200px;
+}
+
+.DeliveryDate {
+    width: 300px;
+}
+
+.DeliveryPrice {
+    width: 150px;
+    margin-right: 40px;
+}
+

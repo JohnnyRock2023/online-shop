@@ -1,0 +1,35 @@
+.chooseImage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.chooseImage__image {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.chooseImage__input::file-selector-button {
+    border: 2px solid var(--color-black);
+    padding: 10px 15px;
+    font-size: var(--text-lg);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-main);
+    background: var(--color-primary-background);
+}
+
+.chooseImage__input::file-selector-button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.chooseImage__input[type="file"] {
+    font-size: 0;
+}

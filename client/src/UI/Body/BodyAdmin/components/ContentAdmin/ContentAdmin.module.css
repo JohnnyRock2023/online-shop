@@ -1,0 +1,9 @@
+.ContentAdmin {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+}

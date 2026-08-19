@@ -1,0 +1,19 @@
+.customButton {
+    position: relative;
+    background: var(--color-primary-background);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--text-lg);
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-bold);
+    padding: 0 20px;
+    height: 50px;
+    width: auto;
+    line-height: 50px;
+    color: var(--color-primary-text);
+}
+
+.customButton:hover {
+    background: var(--color-primary-hover);
+    cursor: pointer;
+}

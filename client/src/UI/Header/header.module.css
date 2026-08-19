@@ -1,0 +1,22 @@
+
+.header {
+    position: relative;
+    display: flex;
+    min-height: 70px;
+    min-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-black);
+}
+
+.logoLink {
+    position: relative;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: var(--text-xl);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    margin-left: 60px;
+    margin-right: 60px;
+    text-wrap: nowrap;
+}

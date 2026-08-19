@@ -1,0 +1,11 @@
+.cartList {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0;
+    flex: 1;
+}

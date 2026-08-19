@@ -1,0 +1,43 @@
+.searchResultItem {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    background: var(--color-background);
+    min-height: 50px;
+    margin: 3px 0;
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-md);
+    font-family: var(--font-main);
+}
+
+.searchResultItem:hover {
+    cursor: pointer;
+}
+
+.searchResultItem__image {
+    height: 40px;
+    width: 40px;
+    border-radius: var(--radius-md);
+    margin-left: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.searchResultItem__name, .searchResultItem__price  {
+    overflow-wrap: break-word;
+}
+
+.searchResultItem__name {
+    margin: 0 20px;
+    width: 60%;
+}
+
+.searchResultItem__price {
+    flex: 1;
+    margin-right: 20px;
+}

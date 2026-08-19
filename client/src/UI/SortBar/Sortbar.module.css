@@ -1,0 +1,59 @@
+.sortbar {
+    width: 1200px;
+    height: 30px;
+    margin: 30px 0 10px 0
+}
+
+.sortbar__select {
+    height: 100%;
+    width: auto;
+    margin: 0 10px;
+    padding: 15px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-lg);
+    background: var(--color-primary-background);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-bold);
+}
+
+.sortbar__select:focus {
+    border-radius: var(--radius-sm);
+    border: none;
+    outline: none;
+}
+
+.sortbar__select:hover {
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.sortbar__select,
+::picker(select) {
+    appearance: base-select;
+}
+
+
+.sortbar__select:hover,
+select:focus {
+    background: var(--color-primary-background);
+}
+.sortbar__select::picker-icon {
+    color: var(--color-gray-500);
+    transition: 0.4s rotate;
+}
+.sortbar__select:open::picker-icon {
+    rotate: 180deg;
+}
+
+.sortbar__option::checkmark {
+    content: "";
+}
+
+.sortbar__option {
+    border: none;
+}

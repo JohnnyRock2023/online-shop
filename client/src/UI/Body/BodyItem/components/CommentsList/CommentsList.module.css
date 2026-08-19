@@ -1,0 +1,19 @@
+.commentsList {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.commentsList__title {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+}
+
+.commentsListItem {
+    min-height: 50px;
+    line-height: 50px;
+}

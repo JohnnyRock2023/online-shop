@@ -1,0 +1,16 @@
+
+
+.InputHint{
+    display: none;
+    position: relative;
+    width: 100%;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: var(--text-lg);
+    color: var(--color-danger);
+    margin: 5px 0 0 0;
+}
+
+.InputHint.active {
+    display: block;
+}

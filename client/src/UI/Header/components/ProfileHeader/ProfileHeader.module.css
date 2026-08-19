@@ -1,0 +1,14 @@
+.profileHeader {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    place-content: center;
+    object-fit: cover;
+    margin-right: 50px;
+}
+
+.profileHeader:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

@@ -1,0 +1,39 @@
+.Counter {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    background: var(--color-primary-background);
+    border-radius: var(--radius-md);
+}
+
+.Counter h2 {
+    line-height: 30px;
+    margin: 0 10px;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-main);
+    text-align: center;
+    color: var(--color-primary-text);
+}
+
+
+.ButtonPlus:hover, .ButtonMinus:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.ButtonPlus {
+    background: url("./icons/plus.png");
+}
+
+.ButtonMinus {
+    background: url("./icons/minus.png");
+}
+
+.ButtonPlus, .ButtonMinus {
+    height: 30px;
+    width: 30px;
+    background-position: center center;
+    background-size: 70%;
+    background-repeat: no-repeat;
+}

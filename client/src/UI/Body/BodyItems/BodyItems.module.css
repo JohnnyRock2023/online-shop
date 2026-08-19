@@ -1,0 +1,20 @@
+.bodyItems {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: var(--color-background);
+    flex: 1;
+}
+
+.itemsList {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 1200px;
+    padding: 0 0 40px 0;
+}

@@ -1,0 +1,53 @@
+.roles {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.saveBtn, .delBtn {
+    margin: 50px 50px;
+}
+
+.delBtn {
+    background: var(--color-danger);
+    color: var(--color-text);
+}
+
+.chooseImage {
+    margin-right: 20px;
+}
+
+.chooseImage img {
+    border-radius: 50% !important;
+}
+
+.content {
+    position:relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    flex: 1;
+}
+
+.userData {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 50%;
+    max-width: 95%;
+    align-items: center;
+    justify-content: space-between;
+}
+
