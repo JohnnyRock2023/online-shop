@@ -1,11 +1,12 @@
 import React from 'react';
 import Class from './DeliveryListItem.module.css'
+import Uploads from "../../../../../../API/Uploads";
 
 const DeliveryListItem = ({delivery}) => {
     return (
         <li className={Class.DeliveryListItem}>
             <div className={Class.DeliveryLogo}>
-                <img src={`http://localhost:5000/uploads/${delivery.logo}`} alt={delivery.logo}></img>
+                <img src={Uploads.getImageLink(delivery.logo)} alt={delivery.logo}></img>
             </div>
             <div className={Class.DeliveryInfo}>
                 <div className={Class.DeliveryName}>

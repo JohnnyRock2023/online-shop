@@ -1,87 +1,69 @@
-const {getUser} = require("../db/userdb");
 const {query} = require("../db/db");
 const {decodeToken} = require("./authContoller");
-const userController = require("./userController");
+const path = require("path");
+const fs = require("fs");
 
-exports.getUserData = async (req, res) => {
-    const decodedToken = decodeToken(req);
-    const data = await query('SELECT name, image, email, role FROM public."User" WHERE id = $1', [decodedToken.user_id]);
-    return res.json(data.rows);
+const deleteImage = async (id) => {
+    const image = await query('SELECT image FROM public."User" WHERE id = $1', [id])
+    const imageName = image.rows[0].image
+    if (imageName !== 'default-profile.jpg') {
+        const imagePath = path.join(__dirname, "..//..//uploads", image.rows[0].image)
+        fs.unlink(imagePath, (err) => {
+            if (err) {
+                console.error('An error occurred:', err);
+            } else {
+                console.log('File deleted successfully!');
+            }
+        });
+    }
 }
 
-exports.getAllUsers = async (req, res) => {
-    const decodedToken = decodeToken(req);
-    if (!decodedToken) {return res.status(404).send("Not Found");}
-    const role = await userController.getRole(decodedToken.user_id);
-    if (role === 'super') {
-        const result = await query('SELECT id, email, name, image, role FROM public."User"')
-        res.json(result.rows)
-    }
-    else {
-        return res.status(404).send("Not Found");
-    }
+exports.getUserData = async (req, res) => {
+    const token = decodeToken(req)
+    const data = await query('SELECT name, image, email, role FROM public."User" WHERE id = $1', [token.user_id]);
+    return res.status(200).json({data: data.rows[0], message: "User data found successfully"});
+}
+
+exports.searchUsers = async (req, res) => {
+    const result = await query('SELECT * FROM public."User" WHERE name ILIKE $1', [`%${req.query.name}%`])
+    return res.status(200).json({data: result.rows, message: "Users found successfully"});
+}
+
+exports.getUsers = async (req, res) => {
+    const result = await query('SELECT id, email, name, image, role FROM public."User"')
+    res.status(200).json({data: result.rows, message: "User got successfully"});
 }
 
 exports.updateUserData = async (req, res) => {
-    const decodedToken = decodeToken(req);
-    if (!decodedToken) {return res.status(404).send("Not Found");}
-    const role = await userController.getRole(decodedToken.user_id);
-    console.log(req.body);
-    if (role === 'super') {
-        const result = await query('UPDATE public."User" SET role=$1 WHERE id = $2 ', [...req.body]);
-        res.json(result.rows);
+    let params = [req.body.name, req.body.email, req.body.role];
+    if (req.file) {
+        await deleteImage(req.body.id)
+        await query('UPDATE public."User" SET name=$1, email=$2, role=$3, image=$4 WHERE id = $5',
+            [...params, req.file.filename, req.body.id]);
     }
     else {
-        return res.status(404).send("Not Found");
+        await query('UPDATE public."User" SET name=$1, email=$2, role=$3 WHERE id = $4',
+            [...params, req.body.id]);
     }
+    res.status(202).json({message: 'Updated user'});
 }
 
 exports.addUser = async (req, res) => {
-    const decodedToken = decodeToken(req);
-    console.log(req.body, req.file)
-    if (!decodedToken) {return res.status(404).send("Not Authorized");}
-    try {
-        const role = await userController.getRole(decodedToken.user_id);
-        let params = [req.body.username, req.body.email, req.body.password, req.body.role]
-        if (req.file) {
-            params.push(req.file.filename)
-        }
-        if (role === 'super') {
-            if (req.file) {
-                await query(`INSERT INTO public."User"(name, email, password, role, image) VALUES ($1, $2, $3, $4, $5)`, params);
-            }
-            else {
-                await query(`INSERT INTO public."User"(name, email, password, role) VALUES ($1, $2, $3, $4)`, params);
-            }
-            res.json(true);
-        }
-        else {
-            res.status(404).send("Not Enough Rights");
-        }
+    let params = [req.body.username, req.body.email, req.body.password, req.body.role]
+    if (req.file) {
+        await query(`INSERT INTO public."User"(name, email, password, role, image) VALUES ($1, $2, $3, $4, $5)`, [...params, req.file.filename]);
     }
-    catch (error){
-        res.status(404).send("Error occured");
+    else {
+        await query(`INSERT INTO public."User"(name, email, password, role) VALUES ($1, $2, $3, $4)`, params);
     }
+    res.status(201).json({message: "User Added"})
 }
 
 exports.deleteUser = async (req, res) => {
-    const decodedToken = decodeToken(req);
-    if (!decodedToken) {return res.status(404).send("Not Authorized");}
-    try {
-        const role = await userController.getRole(decodedToken.user_id);
-        if (role === 'super') {
-            const result = await query('DELETE FROM public."User" WHERE id = $1', [req.body.id]);
-            res.json(true);
-        }
-        else {
-            res.status(404).send("Not Enough Rights");
-        }
-    }
-    catch (error){
-        res.status(404).send("Error occured");
-    }
-}
+    await query('DELETE FROM public."User" WHERE id = $1', [req.body.id]);
+    res.status(204).json({message: "User Deleted"});
 
+}
 
 exports.getRole = async (user_id) => {
     const user = await query(`SELECT * FROM public."User" WHERE id = $1`, [user_id]);

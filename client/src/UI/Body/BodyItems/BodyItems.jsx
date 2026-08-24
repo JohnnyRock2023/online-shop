@@ -8,13 +8,9 @@ import Loader from "../../Components/Loader/Loader";
 
 const BodyItems = () => {
     const [sort, setSort] = useState('By name')
-    const [items, setItems] = useState([]);
 
-    const [fetchItems, isLoading, error] = useFetching(
-        async () => {
-            const result = await ItemService.getItems()
-            setItems(result)
-        }
+    const [fetchItems, isLoading, result, error] = useFetching(
+            async () => await ItemService.getItems(1, 10)
     );
 
     useEffect(() => {
@@ -37,7 +33,7 @@ const BodyItems = () => {
         }
     }
 
-    const cachedSort = useMemo(() => {return sortItems(sort, items);}, [sort, items])
+    const cachedSort = useMemo(() => {return sortItems(sort, result);}, [sort, result])
 
     return (
         <div className={Class.bodyItems}>
@@ -47,7 +43,7 @@ const BodyItems = () => {
                 <Loader></Loader>
                 :
                 <div className={Class.itemsList}>
-                    {cachedSort && cachedSort.map((item) => <ListItem key={item.id} item={item}/>)}
+                    {cachedSort?.map((item) => <ListItem key={item.id} item={item}/>)}
                 </div>
             }
         </div>

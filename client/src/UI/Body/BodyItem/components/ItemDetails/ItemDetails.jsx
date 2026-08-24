@@ -4,6 +4,7 @@ import CustomButton from "../../../../Components/CustomButton/CustomButton";
 import DeliveryList from "../DeliveryList/DeliveryList";
 import CartService from "../../../../../API/CartService";
 import ItemService from "../../../../../API/ItemService";
+import {handleRequest} from "../../../../../utils/handleRequest";
 
 const ItemDetails = ({item, cartItems, setCartItems, inCart, setInCart}) => {
 
@@ -22,8 +23,11 @@ const ItemDetails = ({item, cartItems, setCartItems, inCart, setInCart}) => {
             setInCart(false);
             return;
         }
-        const res = await CartService.delFromCart(token, item.id);
-        setInCart(false);
+        const {data, error} = await handleRequest(async () => await CartService.delFromCart(token, item.id));
+        if (!error) {
+            setInCart(false);
+        }
+
     }
 
     const addCartItem = async () => {
@@ -38,24 +42,25 @@ const ItemDetails = ({item, cartItems, setCartItems, inCart, setInCart}) => {
             setInCart(true);
             return;
         }
-        const res = await ItemService.addToCart(token, item.id, 1);
-        setInCart(true);
+        const {data, error} = await handleRequest(async () => await ItemService.addToCart(token, item.id, 1));
+        if (!error) {
+            setInCart(true);
+        }
     };
-
 
     return (
         <div className={Class.itemDetails}>
             <div className={Class.itemDetailsName}>
-                <h2 className={Class.itemDetailsName__text}>{item.name}</h2>
+                <h2 className={Class.itemDetailsName__text}>{item?.name}</h2>
             </div>
             <div className={Class.itemDetailsBuy}>
-                <h2 className={Class.itemDetailsBuy__text}>{item.price}$</h2>
+                <h2 className={Class.itemDetailsBuy__text}>{item?.price}$</h2>
                 {inCart ?
                     <CustomButton className={Class.itemDetailsBuy__button} onClick={async () => await removeCartItem()}>
                         Remove from cart
                     </CustomButton>
                     :
-                    <CustomButton onClick={async () => await addCartItem()}>
+                    <CustomButton className={Class.itemDetailsBuy__button} onClick={async () => await addCartItem()}>
                         Add to cart
                     </CustomButton>
                 }

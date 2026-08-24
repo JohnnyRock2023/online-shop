@@ -6,6 +6,7 @@
     place-content: center;
     object-fit: cover;
     margin-right: 50px;
+    margin-left: 50px;
 }
 
 .profileHeader:hover {

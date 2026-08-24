@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import Class from './Users.module.css'
-import SearchUsers from "./SearchUsers/SearchUsers";
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import UserService from "../../../../../../API/UserService";
 import LabelInput from "../../LabelInput/LabelInput";
 import Message from "../../../../../Modals/Message/Message";
 import LabelSelect from "../../LabelSelect/LabelSelect";
 import ChooseImage from "../../ChooseImage/ChooseImage";
+import Search from "../../../../../Components/Search/Search";
+import {handleRequest} from "../../../../../../utils/handleRequest";
 
 const Users = () => {
 
@@ -56,9 +57,18 @@ const Users = () => {
     }
 
     const updateUser = async () => {
+        const formData = new FormData();
+        formData.append("id", user.id);
+        formData.append("name", username);
+        formData.append("email", email);
+        formData.append("role", role);
 
-        const success = await UserService.updateUser(token, [role, user.id])
-        if (success) {
+        if (image) {
+            formData.append("image", image);
+        }
+
+        const {data, error} = await handleRequest(async () => await UserService.updateUser(token, formData))
+        if (!error) {
             setMessage("The user data has been updated successfully!");
         }
         else {
@@ -68,8 +78,8 @@ const Users = () => {
     }
 
     const deleteUser = async () => {
-        const success = await UserService.deleteUser(token, user.id);
-        if (success) {
+        const {data, error} = await UserService.deleteUser(token, user.id);
+        if (!error) {
             setMessage("The user has been deleted successfully!");
             clearFields();
         }
@@ -89,15 +99,15 @@ const Users = () => {
     }
 
     return (
-        <div className={Class.roles}>
+        <div className={Class.users}>
             <Message message={message} visible={messageVisible} setVisible={setMessageVisible} />
-            <SearchUsers user={user} setUser={setUser} />
+            <Search fetch={UserService.searchUsers} setItem={setUser} className={Class.search}/>
             <div className={Class.content}>
                 <div className={Class.userData}>
                     <ChooseImage setImage={setImage} defaultImage={image} className={Class.chooseImage}></ChooseImage>
                     <LabelInput label="Username" value={username} onChange={e => setUsername(e.target.value)}></LabelInput>
                     <LabelInput label="Email" value={email} onChange={e => setEmail(e.target.value)}></LabelInput>
-                    <LabelSelect label="Role" value={role} onChange={e => {setRole(e.target.value)}}>
+                    <LabelSelect label="Role" value={role} onChange={e => {setRole(e.target.value);}}>
                         {options.map((option, index) => <option key={index} value={option}>{option}</option>)})
                     </LabelSelect>
                 </div>

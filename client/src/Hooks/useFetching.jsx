@@ -1,22 +1,19 @@
 import {useState} from 'react'
+import {handleRequest} from "../utils/handleRequest";
 
 const useFetching = (callback) => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(null)
+    const [result, setResult] = useState(null)
     const fetchItems = async () => {
-        try {
             setIsLoading(true)
-            await callback()
-        }
-        catch (error) {
+            const {data, error} = await handleRequest(callback)
+            setResult(data)
             setError(error)
-        }
-        finally {
             setIsLoading(false)
-        }
     }
-    return [fetchItems, isLoading, error]
+    return [fetchItems, isLoading, result, error]
 };
 
 export default useFetching;

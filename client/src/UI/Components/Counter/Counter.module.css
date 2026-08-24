@@ -1,4 +1,4 @@
-.Counter {
+.counter {
     display: flex;
     flex-direction: row;
     height: 30px;
@@ -6,7 +6,7 @@
     border-radius: var(--radius-md);
 }
 
-.Counter h2 {
+.counter__value {
     line-height: 30px;
     margin: 0 10px;
     font-size: var(--text-lg);
@@ -17,23 +17,24 @@
 }
 
 
-.ButtonPlus:hover, .ButtonMinus:hover {
+.buttonPlus:hover, .ButtonMinus:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
-.ButtonPlus {
+.buttonPlus {
     background: url("./icons/plus.png");
 }
 
-.ButtonMinus {
+.buttonMinus {
     background: url("./icons/minus.png");
 }
 
-.ButtonPlus, .ButtonMinus {
+.buttonPlus, .buttonMinus {
     height: 30px;
     width: 30px;
     background-position: center center;
     background-size: 70%;
     background-repeat: no-repeat;
+    border: none;
 }

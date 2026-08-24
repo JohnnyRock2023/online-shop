@@ -7,10 +7,12 @@ const ListItem = ({item}) => {
     const navigate = useNavigate();
 
     return (
-        <div className={Class.ListItem} onClick={()=> navigate(`/items/${item.id}`)}>
-            <img src={Uploads.getImageLink(item.image)} alt={item.image}></img>
-            <h3>{item.name}</h3>
-            <h3>{item.price}$</h3>
+        <div className={Class.listItem} onClick={()=> navigate(`/items/${item.id}`)}>
+            <div className={Class.imageContainer}>
+                <img className={Class.imageContainer__image} src={Uploads.getImageLink(item.image)} alt={item.image}></img>
+            </div>
+            <h3 className={Class.listItem__text}>{item.name}</h3>
+            <h3 className={Class.listItem__text}>{item.price}$</h3>
         </div>
     );
 };

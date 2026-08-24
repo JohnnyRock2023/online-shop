@@ -3,7 +3,7 @@ import Class from './ContentAdmin.module.css'
 
 const ContentAdmin = ({children}) => {
     return (
-        <div className={Class.ContentAdmin}>
+        <div className={Class.contentAdmin}>
             {children}
         </div>
     );

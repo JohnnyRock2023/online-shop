@@ -18,3 +18,7 @@
     background-color: var(--color-primary-background);
     color: var(--color-primary-text);
 }
+
+.navbarItem.admin {
+    background-color: var(--color-success);
+}

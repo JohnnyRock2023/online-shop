@@ -9,9 +9,6 @@ import Loader from "../../Components/Loader/Loader";
 import CartContext from "../../../Context/CartContext";
 
 const Cart = ({visible, setVisible}) => {
-
-    const {id} = useParams();
-
     const {cartItems, setCartItems} = useContext(CartContext);
 
     const [fetchCart, isLoading, error] = useFetching(async ()=> {
@@ -32,16 +29,13 @@ const Cart = ({visible, setVisible}) => {
         }
 
         const res = await CartService.getCart(token);
-
-        const updItems = res.map(item => {
+        const updItems = res?.data?.map(item => {
             const cachedItem = cachedCart.find(
                 c => Number(item.id) === Number(c.id)
             );
-            console.log(item);
             if (cachedItem) {
                 item.count = Number(cachedItem.count);
             }
-            console.log(item);
             return item;
         });
         setCartItems(updItems);

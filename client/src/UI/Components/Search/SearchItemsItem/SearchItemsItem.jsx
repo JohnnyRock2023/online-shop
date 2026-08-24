@@ -1,8 +1,8 @@
 import React from 'react';
-import Class from './SearchResultItem.module.css'
-import Uploads from "../../../../../API/Uploads";
+import Class from './SearchItemsItem.module.css'
+import Uploads from "../../../../API/Uploads";
 
-const SearchResultItem = ({item, onClick}) => {
+const SearchItemsItem = ({item, onClick}) => {
     return (
         <div className={Class.searchResultItem} onClick={onClick}>
             <img className={Class.searchResultItem__image} src={Uploads.getImageLink(item.image)} alt={item.image}></img>
@@ -12,4 +12,4 @@ const SearchResultItem = ({item, onClick}) => {
     );
 };
 
-export default SearchResultItem;
+export default SearchItemsItem;

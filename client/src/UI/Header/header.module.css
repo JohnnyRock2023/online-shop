@@ -9,6 +9,12 @@
     background: var(--color-black);
 }
 
+.search {
+    height: 45%;
+    margin-right: 150px;
+    flex: 1;
+}
+
 .logoLink {
     position: relative;
     text-decoration: none;

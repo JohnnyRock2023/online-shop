@@ -1,46 +1,46 @@
-.searchUsers {
+
+.search {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    width: 40%;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .searchBar{
     display: flex;
     position: relative;
     flex-direction: row;
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
+    height: 100%;
     width: 100%;
-    height: 40px;
 }
 
 .searchBar__input, .searchBar__button {
     height: 100%;
     border: none;
-    background: var(--color-primary-background);
+    background-color: var(--color-primary-background);
     margin: 0;
 }
 
 .searchBar__input {
-    width: 100%;;
+    flex: 1;
     padding: 0 0 0 10px;
     border-radius: 10px 0 0 10px;
-    font-size: var(--text-lg);
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
+    font-size: var(--text-md);
 }
 
 .searchBar__input:focus {
     outline: none;
 }
 
-
-.searchBar__button {
+.searchBar__button{
     border-radius: 0 10px 10px 0;
+    background-image: url(icons/search.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 50%;
@@ -56,7 +56,7 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-    background: var(--color-primary-background);
+    background: white;
     border-radius: var(--radius-md);
     top: calc(100% + 20px);
     padding: 0 5px;

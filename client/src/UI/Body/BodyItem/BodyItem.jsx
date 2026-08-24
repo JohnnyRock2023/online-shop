@@ -8,16 +8,15 @@ import ItemService from "../../../API/ItemService";
 import CartService from "../../../API/CartService";
 import CartContext from "../../../Context/CartContext";
 import ItemDetails from "./components/ItemDetails/ItemDetails";
+import Uploads from "../../../API/Uploads";
 
 
 const BodyItem = () => {
 
     const {id} = useParams();
-    const [item, setItem] = useState({});
     const [inCart, setInCart] = useState(false);
-    const [fetchItem, isLoading, error] = useFetching(async ()=> {
-            const itm = await ItemService.getItem(id);
-            setItem(itm);
+    const [fetchItem, isLoading, result, error] = useFetching(async ()=> {
+            const item = await ItemService.getItem(id);
             const token = localStorage.getItem("token")
             if (!token) {
                 setInCart(false);
@@ -25,6 +24,7 @@ const BodyItem = () => {
             }
             const isInCart = await CartService.isInCart(token, id)
             setInCart(isInCart);
+            return item
         }
     );
 
@@ -32,7 +32,7 @@ const BodyItem = () => {
 
     useEffect(() => {
         fetchItem();
-    }, [])
+    }, [id])
 
     return (
         <div className={Class.bodyItem}>
@@ -41,14 +41,14 @@ const BodyItem = () => {
             <>
                 <div className={Class.bodyItemContent}>
                         <div className={Class.bodyItemImages} >
-                            <img className={Class.bodyItemImages__image} src={`http://localhost:5000/uploads/${item.image}`} alt="img"></img>
+                            <img className={Class.bodyItemImages__image} src={Uploads.getImageLink(result?.image)} alt={result?.image}></img>
                         </div>
-                        <ItemDetails item={item} cartItems={cartItems} setCartItems={setCartItems} inCart={inCart} setInCart={setInCart}/>
+                        <ItemDetails item={result} cartItems={cartItems} setCartItems={setCartItems} inCart={inCart} setInCart={setInCart}/>
                 </div>
                 <div className={Class.bodyItemDescription}>
                     <h1 className={Class.bodyItemDescription__title}>Description</h1>
                     <div className={Class.description}>
-                        <p className={Class.description__text}>{item.description}</p>
+                        <p className={Class.description__text}>{result?.description}</p>
                     </div>
                 </div>
                 <div className={Class.bodyItemComments}>

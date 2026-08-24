@@ -7,7 +7,9 @@
 
 .itemDetailsName, .itemDetailsBuy{
     position: relative;
-    height: 80px;
+    display: flex;
+    min-height: 80px;
+    align-items: center;
     width: 100%;
     border-radius: var(--radius-lg);
     margin-bottom: 10px;
@@ -16,13 +18,14 @@
 
 .itemDetailsName__text{
     position: relative;
-    margin: 0 0 0 25px;
-    line-height: 80px;
+    line-height: 100%;
+    align-content: center;
+    padding: 30px;
+    margin: 0;
     width: 100%;
-    height: 100%;
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     color: var(--color-text);
 }
 
@@ -31,11 +34,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    padding: 10px 0;
 }
 
 .itemDetailsBuy__text {
-    margin-left: 25px;
+    margin-left: 30px;
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
     font-size: var(--text-lg);
@@ -43,7 +46,7 @@
 }
 
 .itemDetailsBuy__button {
-    margin-left: 25px;
+    margin-left: 50px;
 }
 
 .itemDetailsDelivery {

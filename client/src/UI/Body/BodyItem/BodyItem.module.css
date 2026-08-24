@@ -42,8 +42,8 @@
 
 .bodyItemImages__image{
     position: relative;
-    max-width: 700px;
-    max-height: 700px;
+    max-width: 600px;
+    max-height: 600px;
     border-radius: var(--radius-lg);
     object-fit: contain;
 }
@@ -71,13 +71,12 @@
     color: var(--color-text);
     font-size: var(--text-md);
     font-family: var(--font-main);
-    padding: 10px 20px;
     background: var(--color-black);
 }
 
 .description__text {
     overflow-wrap: normal;
-    max-width: 1000px;
+    padding: 25px;
     margin: 0;
 }
 

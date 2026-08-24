@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import Class from './ItemsAdmin.module.css'
-import SearchItems from "./SearchItems/SearchItems";
 import LabelInput from "../../LabelInput/LabelInput";
 import LabelTextArea from "../../LabelTextArea/LabelTextArea";
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import ItemService from "../../../../../../API/ItemService";
 import Message from "../../../../../Modals/Message/Message";
 import ChooseImage from "../../ChooseImage/ChooseImage";
+import {handleRequest} from "../../../../../../utils/handleRequest";
+import Search from "../../../../../Components/Search/Search";
 
 const ItemsAdmin = () => {
     const [item, setItem] = React.useState(null);
@@ -39,9 +40,9 @@ const ItemsAdmin = () => {
         formData.append("description", description);
 
         setVisible(true);
-        const success = await ItemService.addItem(token, formData);
-        if (success) {
-            setMessage('ListItem has been added successfully!');
+        const {data, error} = await handleRequest(async () => await ItemService.addItem(token, formData));
+        if (!error) {
+            setMessage('A new item has been added successfully!');
         }
         else {
             setMessage('Something went wrong!');
@@ -59,9 +60,9 @@ const ItemsAdmin = () => {
         }
 
         setVisible(true);
-        const success = await ItemService.changeItem(token, item.id, formData)
-        if (success) {
-            setMessage('ListItem has been updated!');
+        const {data, error} = await handleRequest(async () => await ItemService.changeItem(token, item.id, formData))
+        if (!error) {
+            setMessage('The item has been updated!');
         }
         else {
             setMessage('Something went wrong!');
@@ -70,9 +71,9 @@ const ItemsAdmin = () => {
 
     const deleteItem = async () => {
         setVisible(true);
-        const success = await ItemService.deleteItem(token, item.id);
-        if (success) {
-            setMessage('ListItem has been deleted!');
+        const {data, error} = await handleRequest(async () => await ItemService.deleteItem(token, item.id));
+        if (!error) {
+            setMessage('The item has been deleted!');
         }
         else {
             setMessage('Something went wrong!');
@@ -91,7 +92,7 @@ const ItemsAdmin = () => {
     return (
         <div className={Class.itemsAdmin}>
             <Message message={message} visible={visible} setVisible={setVisible}></Message>
-            <SearchItems item={item} setItem={setItem} />
+            <Search fetch={ItemService.searchItems} setItem={setItem} className={Class.search} />
             <div className={Class.content}>
                 <div className={Class.itemData}>
                     <ChooseImage setImage={setImage} defaultImage={image}></ChooseImage>
