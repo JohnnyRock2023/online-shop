@@ -1,0 +1,78 @@
+.commentsListItem  {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    flex: 1;
+}
+
+.comment {
+    margin: 10px 0 10px 0;
+    background: var(--color-black);
+    border-radius: var(--radius-md);
+    touch-action: pan-y;
+    user-select: none;
+    transition: transform 0.1s ease;
+    z-index: 1;
+}
+
+.deleteBackground {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 10px;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    padding: 10px 0 10px 0;
+    background: var(--color-danger);
+    border-radius: var(--radius-md);
+    transition: opacity 0.5s ease;
+}
+
+.commentsListItem img {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.commentsListItemPerson {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-main);
+}
+
+.commentsListItemPerson__title{
+    margin: 0 0 0 20px;
+}
+
+.commentsListItem p {
+    position: relative;
+    margin: 0 10px 20px 80px;
+    flex-shrink: 0;
+    overflow-wrap: anywhere;
+    font-family: var(--font-main);
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-normal);
+}
+
+.commentDate {
+    position: absolute;
+    right: 0;
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-normal);
+    margin-right: 50px;
+}

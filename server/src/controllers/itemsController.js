@@ -19,18 +19,25 @@ const deleteImage = async (id) => {
 }
 
 exports.searchItems = async (req, res) => {
-    const result = await query('SELECT * FROM public."Items" WHERE name ILIKE $1 LIMIT 10', [`%${req.query.name}%`])
-    return res.status(200).json({data: result.rows, message: "Item search results successfully"})
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit) || 10);
+    const cursor = req?.query?.cursor ? `AND id < ${req.query.cursor}`: ""
+    const name = `%${req?.query?.search}%`
+    const total = await query('SELECT COUNT(*) from public."Items" WHERE name ILIKE $1', [name])
+    const totalCount = parseInt(total.rows[0].count)
+    const {rows} = await query(`SELECT * FROM public."Items" WHERE name ILIKE $1 ${cursor} ORDER BY id ASC LIMIT $2`, [name, limit])
+    return res.status(200).json({data: rows, meta: {nextCursor: rows.length ? rows[rows.length - 1].id : null, total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
+        message: "Item search results successfully"})
 }
 
 exports.getItems = async (req, res) => {
     const page = Math.max(1, parseInt(req.query.page) || 1);
     const limit = Math.min(100, parseInt(req.query.limit) || 10);
-    const offset = (page - 1) * limit
-    const items = await query('SELECT * FROM public."Items" OFFSET $1', [offset])
+    const cursor = req?.query?.cursor ? `WHERE id < ${req.query.cursor}`: ""
+    const {rows} = await query(`SELECT * FROM public."Items" ${cursor} ORDER BY id ASC`)
     const total = await query('SELECT COUNT(*) from public."Items"')
     const totalCount = parseInt(total.rows[0].count)
-    return res.status(200).json({data: items.rows, meta: {total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
+    return res.status(200).json({data: rows, meta: {nextCursor: rows.length ? rows[rows.length - 1].id : null,total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
         message: "Items got successfully"})
 }
 
@@ -40,8 +47,14 @@ exports.getItem = async (req, res) => {
 }
 
 exports.addItem = async (req, res) => {
-    await query('INSERT INTO public."Items"(name, price, description, image) VALUES($1,$2,$3,$4)',
-        [req.body.name, req.body.price, req.body.description, req.file.filename])
+    if (req.file) {
+        await query('INSERT INTO public."Items"(name, price, description, image) VALUES($1,$2,$3,$4)',
+            [req.body.name, req.body.price, req.body.description, req?.file?.filename])
+    }
+    else {
+        await query('INSERT INTO public."Items"(name, price, description) VALUES($1,$2,$3)',
+            [req.body.name, req.body.price, req.body.description])
+    }
     res.status(201).json({message: 'Item added successfully'})
 }
 
@@ -51,8 +64,10 @@ exports.updateItem = async (req, res) => {
         await query('UPDATE public."Items" SET name = $1, price = $2, description = $3, image = $4 WHERE id = $5',
             [req.body.name, req.body.price, req.body.description, req.file.filename, req.params.id])
     }
-    await query('UPDATE public."Items" SET name = $1, price = $2, description = $3 WHERE id = $4',
-        [req.body.name, req.body.price, req.body.description, req.params.id])
+    else {
+        await query('UPDATE public."Items" SET name = $1, price = $2, description = $3 WHERE id = $4',
+            [req.body.name, req.body.price, req.body.description, req.params.id])
+    }
     res.status(202).json({message: 'Item updated successfully'})
 }
 

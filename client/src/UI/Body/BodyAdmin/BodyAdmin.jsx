@@ -9,12 +9,11 @@ import ItemsAdmin from "./components/ContentAdmin/ItemsAdmin/ItemsAdmin";
 
 const BodyAdmin = () => {
 
-    const [fetchUser, isLoading, user, error] = useFetching(
+    const [fetchUser, isLoading, user, setUser, error] = useFetching(
         async () => await UserService.getUserData()
     );
 
     const [selectedOption, setSelectedOption] = React.useState('');
-
 
     useEffect(() => {
          fetchUser();

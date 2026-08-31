@@ -30,6 +30,7 @@ const Users = () => {
         if (user) {
             setImage(user.image);
             setUsername(user.name);
+            setPassword(user.password);
             setEmail(user.email);
             setRole(user.role);
         }
@@ -60,6 +61,7 @@ const Users = () => {
         const formData = new FormData();
         formData.append("id", user.id);
         formData.append("name", username);
+        formData.append("password", password);
         formData.append("email", email);
         formData.append("role", role);
 
@@ -106,9 +108,10 @@ const Users = () => {
                 <div className={Class.userData}>
                     <ChooseImage setImage={setImage} defaultImage={image} className={Class.chooseImage}></ChooseImage>
                     <LabelInput label="Username" value={username} onChange={e => setUsername(e.target.value)}></LabelInput>
+                    <LabelInput label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
                     <LabelInput label="Email" value={email} onChange={e => setEmail(e.target.value)}></LabelInput>
                     <LabelSelect label="Role" value={role} onChange={e => {setRole(e.target.value);}}>
-                        {options.map((option, index) => <option key={index} value={option}>{option}</option>)})
+                        {options.map((option, index) => <option key={index} value={option}>{option}</option>)}
                     </LabelSelect>
                 </div>
             </div>

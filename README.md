@@ -64,7 +64,7 @@ online-store/
 │   │   ├── Provider/        # Context/state providers
 │   │   ├── Styles/          # Global styles
 │   │   ├── UI/              # UI components
-│   │   ├── App.js
+│   │   ├── App.jsx
 │   │   └── index.js
 │   └── package.json
 ├── server/                  # Backend (Node.js/Express)
@@ -131,18 +131,20 @@ The app will be available at `http://localhost:3000`, the API at `http://localho
 
 All backend routes are prefixed with `/api` to distinguish them from frontend routes.
 
-| Method | Endpoint                 | Description |
-|---|--------------------------|---|
-| GET | `/api/products`          | Get list of products |
-| GET | `/api/products/:id`      | Get a single product |
-| POST | `/api/auth/signup`       | Register a new user |
-| POST | `/api/auth/login`        | Log in |
-| GET | `/api/cart`              | Get current user's cart |
-| POST | `/api/cart`              | Add item to cart |
-| PATCH | `/api/cart/:id`          | Update item quantity in cart |
-| DELETE | `/api/cart/:id`          | Remove item from cart |
-| GET | `/api/comments/:id` | Get reviews for a product |
-| POST | `/api/orders`            | Place an order |
+| Method | Endpoint              | Description                     |
+|--------|-----------------------|---------------------------------|
+| GET    | `/api/products`       | Get list of products            |
+| GET    | `/api/products/:id`   | Get a single product            |
+| POST   | `/api/auth/signup`    | Register a new user             |
+| POST   | `/api/auth/login`     | Log in                          |
+| GET    | `/api/cart`           | Get current user's cart         |
+| POST   | `/api/cart`           | Add item to cart                |
+| PATCH  | `/api/cart/:id`       | Update item quantity in cart    |
+| DELETE | `/api/cart/:id`       | Remove item from cart           |
+| GET    | `/api/comments/:id`   | Get reviews for a product       |
+| POST   | `/api/comments/:id`   | Leave a review about a product  |
+| DELETE | `/api/comments/:id`   | Delete a review about a product |
+| POST   | `/api/orders`         | Place an order                  |
 
 
 ## 🗺 Roadmap
@@ -152,7 +154,7 @@ All backend routes are prefixed with `/api` to distinguish them from frontend ro
 - [x] Add admin panel
 - [ ] Write unit tests for the backend
 - [ ] Deploy to Vercel/Render
-- [ ] Optimize content loading
+- [x] Optimize content loading
 
 ## 🤝 Feedback
 

@@ -7,43 +7,50 @@ import CartService from "../../../API/CartService";
 import {useParams} from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
 import CartContext from "../../../Context/CartContext";
+import {handleRequest} from "../../../utils/handleRequest";
 
 const Cart = ({visible, setVisible}) => {
     const {cartItems, setCartItems} = useContext(CartContext);
 
-    const [fetchCart, isLoading, error] = useFetching(async ()=> {
+    const [fetchCart, isLoading, cart, setCart, error] = useFetching(async ()=> {
         const token = localStorage.getItem("token");
         const cachedCart = JSON.parse(localStorage.getItem('cart'))
 
         if (!token && !cachedCart?.length) {
-            return;
+            return {data: null, error: null};;
         }
         else if (!token) {
             setCartItems(cachedCart);
-            return;
+            return {data: null, error: null};
         }
         else if (!cachedCart?.length) {
-            const res = await CartService.getCart(token);
-            setCartItems(res);
-            return;
+            const {data, error} = await handleRequest(async () => await CartService.getCart(token));
+            if (!error) {
+                setCartItems(data);
+            }
+            return {data, error};
         }
 
-        const res = await CartService.getCart(token);
-        const updItems = res?.data?.map(item => {
-            const cachedItem = cachedCart.find(
-                c => Number(item.id) === Number(c.id)
-            );
-            if (cachedItem) {
-                item.count = Number(cachedItem.count);
-            }
-            return item;
-        });
-        setCartItems(updItems);
+        const {data, error} = await handleRequest(async () => await CartService.getCart(token));
+        if (!error) {
+            const updItems = data?.map(item => {
+                const cachedItem = cachedCart.find(
+                    c => Number(item.id) === Number(c.id)
+                );
+                if (cachedItem) {
+                    item.count = Number(cachedItem.count);
+                }
+                return item;
+            });
+            setCartItems(updItems);
+        }
     })
 
     useEffect(() => {
+        if (visible) {
             fetchCart()
-    }, [])
+        }
+    }, [visible])
 
     let clsName = [Class.cart]
     if (visible) {
@@ -54,7 +61,7 @@ const Cart = ({visible, setVisible}) => {
         <div className={clsName.join(' ')} onClick={() => setVisible(false)}>
             <div className={Class.cartContent} onClick={(e)=> e.stopPropagation()}>
                 {isLoading ?
-                    <Loader color="black"/>
+                    <Loader/>
                     :
                     <>
                         <CartList items={cartItems} setItems={setCartItems}/>

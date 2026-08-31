@@ -14,6 +14,6 @@
 }
 
 .customButton:hover {
-    background: var(--color-primary-hover);
+    opacity: 0.7;
     cursor: pointer;
 }

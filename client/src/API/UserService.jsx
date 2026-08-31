@@ -3,27 +3,22 @@ import axios from "axios";
 export default class UserService {
     static getUserData = async () => {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/user', {headers: {Authorization: `Bearer ${token}`}});
-        return res.data;
+        return await axios.get('http://localhost:5000/api/user', {headers: {Authorization: `Bearer ${token}`}});
     }
-    static searchUsers = async (name) => {
+    static searchUsers = async (search, page, limit, cursor) => {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/user/search', {headers: {Authorization: `Bearer ${token}`}, params: {name}});
-        return res.data;
+        return await axios.get('http://localhost:5000/api/user/search', {headers: {Authorization: `Bearer ${token}`}, params: {search, page, limit, cursor}});
     }
 
     static addUser = async (token, data) => {
-        const res = await axios.post(`http://localhost:5000/api/user`, data, {headers: {Authorization: `Bearer ${token}`}});
-        return res.data
+        return await axios.post(`http://localhost:5000/api/user`, data, {headers: {Authorization: `Bearer ${token}`}});
     }
 
     static updateUser = async (token, data) => {
-        const res = await axios.put('http://localhost:5000/api/user', data, {headers: {Authorization: `Bearer ${token}`}});
-        return res.data;
+        return await axios.put('http://localhost:5000/api/user', data, {headers: {Authorization: `Bearer ${token}`}});
     }
 
     static deleteUser = async (token, id) => {
-        const res = await axios.delete('http://localhost:5000/api/user', {headers: {Authorization: `Bearer ${token}`}, data: {id} });
-        return res.data;
+        return await axios.delete('http://localhost:5000/api/user', {headers: {Authorization: `Bearer ${token}`}, data: {id} });
     }
 }

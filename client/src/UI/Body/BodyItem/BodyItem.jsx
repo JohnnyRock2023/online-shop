@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Class from './BodyItem.module.css'
-import CommentsList from "./components/CommentsList/CommentsList";
 import Loader from "../../Components/Loader/Loader";
 import {useParams} from "react-router-dom";
 import useFetching from "../../../Hooks/useFetching";
@@ -9,21 +8,23 @@ import CartService from "../../../API/CartService";
 import CartContext from "../../../Context/CartContext";
 import ItemDetails from "./components/ItemDetails/ItemDetails";
 import Uploads from "../../../API/Uploads";
+import Comments from "./components/CommentsList/Comments";
+import {handleRequest} from "../../../utils/handleRequest";
 
 
 const BodyItem = () => {
 
     const {id} = useParams();
     const [inCart, setInCart] = useState(false);
-    const [fetchItem, isLoading, result, error] = useFetching(async ()=> {
+    const [fetchItem, isLoading, item, setItem, error] = useFetching(async ()=> {
             const item = await ItemService.getItem(id);
             const token = localStorage.getItem("token")
             if (!token) {
                 setInCart(false);
-                return;
+                return item;
             }
             const isInCart = await CartService.isInCart(token, id)
-            setInCart(isInCart);
+            setInCart(isInCart.data);
             return item
         }
     );
@@ -37,24 +38,32 @@ const BodyItem = () => {
     return (
         <div className={Class.bodyItem}>
             {error && <h1>{error.toString()}</h1>}
-            {isLoading ? <Loader/> :
-            <>
                 <div className={Class.bodyItemContent}>
                         <div className={Class.bodyItemImages} >
-                            <img className={Class.bodyItemImages__image} src={Uploads.getImageLink(result?.image)} alt={result?.image}></img>
+                            {isLoading ? <Loader/> :
+                                <img className={Class.bodyItemImages__image} src={Uploads.getImageLink(item?.image)} alt={item?.image}></img>
+                            }
                         </div>
-                        <ItemDetails item={result} cartItems={cartItems} setCartItems={setCartItems} inCart={inCart} setInCart={setInCart}/>
+                        {isLoading ? <Loader/> :
+                            <ItemDetails item={item} cartItems={cartItems} setCartItems={setCartItems} inCart={inCart} setInCart={setInCart}/>
+                        }
+
                 </div>
                 <div className={Class.bodyItemDescription}>
                     <h1 className={Class.bodyItemDescription__title}>Description</h1>
-                    <div className={Class.description}>
-                        <p className={Class.description__text}>{result?.description}</p>
-                    </div>
+                    {isLoading ? <Loader/> :
+                        <div className={Class.description}>
+                            <p className={Class.description__text}>{item?.description}</p>
+                        </div>
+                    }
+
                 </div>
                 <div className={Class.bodyItemComments}>
-                    <CommentsList/>
+                    <h1 className={Class.commentsList__title}>Commentaries</h1>
+                    {isLoading ? <Loader/> :
+                        <Comments/>
+                    }
                 </div>
-            </>}
         </div>
     );
 };

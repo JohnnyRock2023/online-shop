@@ -6,11 +6,12 @@
 }
 
 .labelInput__label {
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     color: var(--color-text);
     font-weight: var(--font-weight-bold);
-    margin: 5px 0;
 }
 
 .labelInput__input {
@@ -23,6 +24,7 @@
     padding-left: 10px;
     height: 50px;
     line-height: 50px;
+    margin: 5px 0;
 }
 
 .labelInput__input:focus {

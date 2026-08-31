@@ -7,7 +7,6 @@ import SignUp from "./Pages/SignUp";
 import Item from "./Pages/Item";
 import Admin from "./Pages/Admin";
 
-
 const App = () => {
     return (
             <BrowserRouter>

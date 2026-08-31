@@ -7,22 +7,24 @@
 }
 
 .labelTextArea__title {
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     color: var(--color-text);
     font-weight: var(--font-weight-bold);
-    margin: 5px 0;
 }
 
 .labelTextArea__content {
     border-radius: var(--radius-md);
-    background-color: var(--color-primary-background);
+    background-color: var(--color-surface);
     font-size: var(--text-lg);
-    color: var(--color-primary-text);
+    color: var(--color-text);
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
     min-height: 300px;
     padding: 10px;
+    margin: 5px 0;
 }
 
 .labelTextArea__content:focus {

@@ -1,0 +1,33 @@
+
+.textArea__textarea {
+    flex: 1;
+    margin: 15px 20px;
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+    resize: none;
+    color: var(--color-primary-text);
+    font-family: var(--font-main);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-normal);
+    background: var(--color-primary-background);
+    border: none;
+}
+
+.textArea__textarea:focus {
+    outline: none;
+}
+
+.textArea__textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.textArea__textarea::-webkit-scrollbar-track {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.textArea__textarea::-webkit-scrollbar-thumb {
+    background: var(--color-gray-700);
+    border-radius: 99px;
+}
+

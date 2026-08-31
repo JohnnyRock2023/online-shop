@@ -98,7 +98,7 @@ const ItemsAdmin = () => {
                     <ChooseImage setImage={setImage} defaultImage={image}></ChooseImage>
                     <LabelInput label="Name" value={name} onChange={e => setName(e.target.value)}/>
                     <LabelInput label="Price" type='number' value={price} onChange={e => setPrice(e.target.value)}/>
-                    <LabelTextArea label="Description" value={description} onChange={e => setDescription(e.target.value)}/>
+                    <LabelTextArea label="Description" value={description} setValue={setDescription}/>
                 </div>
 
                 {item &&

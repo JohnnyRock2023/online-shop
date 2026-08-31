@@ -1,22 +1,23 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Class from './BodyItems.module.css'
 import ListItem from "./ListItem/ListItem";
 import Sortbar from "../../SortBar/Sortbar";
 import useFetching from "../../../Hooks/useFetching";
 import ItemService from "../../../API/ItemService";
 import Loader from "../../Components/Loader/Loader";
+import usePartialFetching from "../../../Hooks/usePartialFetching";
+import LoaderRef from "../../Components/LoaderRef/LoaderRef";
+import loaderRef from "../../Components/LoaderRef/LoaderRef";
 
 const BodyItems = () => {
     const [sort, setSort] = useState('By name')
+    const limit = 20;
 
-    const [fetchItems, isLoading, result, error] = useFetching(
-            async () => await ItemService.getItems(1, 10)
+    const loaderRef = useRef(null);
+
+    const [isLoading, items, setItems, hasMore, error] = usePartialFetching(
+            async (page, cursor) => await ItemService.getItems(cursor, page, limit), loaderRef
     );
-
-    useEffect(() => {
-        fetchItems();
-    }, [])
-
 
     const sortItems = (sort, items) => {
         if (items) {
@@ -33,7 +34,7 @@ const BodyItems = () => {
         }
     }
 
-    const cachedSort = useMemo(() => {return sortItems(sort, result);}, [sort, result])
+    const cachedSort = useMemo(() => {return sortItems(sort, items);}, [sort, items])
 
     return (
         <div className={Class.bodyItems}>
@@ -44,6 +45,7 @@ const BodyItems = () => {
                 :
                 <div className={Class.itemsList}>
                     {cachedSort?.map((item) => <ListItem key={item.id} item={item}/>)}
+                    {hasMore && <LoaderRef ref={loaderRef}/>}
                 </div>
             }
         </div>

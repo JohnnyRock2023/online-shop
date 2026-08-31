@@ -6,24 +6,16 @@
 }
 
 .labelSelect__label {
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     color: var(--color-text);
     font-weight: var(--font-weight-bold);
-    margin: 5px 0;
 }
 
 .labelSelect__select {
-    border-radius: var(--radius-md);
-    background-color: var(--color-primary-background);
-    font-size: var(--text-lg);
-    color: var(--color-primary-text);
-    font-family: var(--font-main);
-    font-weight: var(--font-weight-normal);
-    padding-left: 10px;
     height: 50px;
-}
-
-.labelSelect__select:focus {
-    outline: none;
+    width: 150px;
+    margin: 5px 0;
 }

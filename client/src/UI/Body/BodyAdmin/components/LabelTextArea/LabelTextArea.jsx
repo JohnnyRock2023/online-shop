@@ -1,11 +1,13 @@
 import React from 'react';
 import Class from './LabelTextArea.module.css'
+import TextArea from "../../../../Components/TextArea/TextArea";
 
-const LabelTextArea = ({label, value, onChange}) => {
+const LabelTextArea = ({label, value, setValue}) => {
     return (
         <div className={Class.labelTextArea}>
-            <h2 className={Class.labelTextArea__title}>{label}</h2>
-            <textarea className={Class.labelTextArea__content} value={value} onChange={onChange}/>
+            <label className={Class.labelTextArea__title}>{label}
+                <TextArea className={Class.labelTextArea__content} text={value} setText={setValue}/>
+            </label>
         </div>
     );
 };

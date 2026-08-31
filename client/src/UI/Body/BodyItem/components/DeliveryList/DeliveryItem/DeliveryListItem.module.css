@@ -11,11 +11,6 @@
     transition: 300ms;
 }
 
-.DeliveryListItem:hover {
-    scale: 1.02;
-    cursor: pointer;
-}
-
 .DeliveryLogo {
     position: relative;
     display: flex;
