@@ -6,7 +6,7 @@ const fs = require("fs");
 const deleteImage = async (id) => {
     const image = await query('SELECT image FROM public."User" WHERE id = $1', [id])
     const imageName = image.rows[0].image
-    if (imageName !== 'default-profile.jpg') {
+    if (imageName) {
         const imagePath = path.join(__dirname, "..//..//uploads", image.rows[0].image)
         fs.unlink(imagePath, (err) => {
             if (err) {
@@ -42,7 +42,14 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.updateUserData = async (req, res) => {
-    let params = [req.body.name, req.body.email, req.body.password, req.body.role];
+    let role = req.body?.role;
+    if (!role) {
+        const data = await query('SELECT * FROM public."User" WHERE id = $1', [req.body.id]);
+        role = data.rows[0].role;
+    }
+
+    let params = [req.body.name, req.body.email, req.body.password, role];
+
     if (req.file) {
         await deleteImage(req.body.id)
         await query('UPDATE public."User" SET name=$1, email=$2, password=$3, role=$4, image=$5 WHERE id = $6',

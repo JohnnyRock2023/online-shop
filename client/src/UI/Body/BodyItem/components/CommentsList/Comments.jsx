@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Class from './Comments.module.css'
 import CommentsItem from "./CommentsItem/CommentsItem";
-import useFetching from "../../../../../Hooks/useFetching";
 import CommentsService from "../../../../../API/CommentsService";
 import Loader from "../../../../Components/Loader/Loader";
 import {useParams} from "react-router-dom";
@@ -11,6 +10,7 @@ import {handleRequest} from "../../../../../utils/handleRequest";
 import usePartialFetching from "../../../../../Hooks/usePartialFetching";
 import LoaderRef from "../../../../Components/LoaderRef/LoaderRef";
 import UserContext from "../../../../../Context/UserContext";
+import defaultProfile from '..//..//..//..//..//DefaultImages/default-profile.jpg'
 
 const Comments = () => {
     const {id} = useParams();
@@ -45,7 +45,7 @@ const Comments = () => {
         <div className={Class.comments}>
             {token &&
                 <div className={Class.addComment}>
-                    <img className={Class.addComment_image} src={Uploads.getImageLink(user?.image)} alt={user?.image}/>
+                    <img className={Class.addComment_image} src={user?.image ? Uploads.getImageLink(user?.image): defaultProfile} alt={user?.image}/>
                     <div className={Class.field}>
                         <TextArea className={Class.textArea} text={text} setText={setText} maxSymbols={maxSymbols} placeholder="Leave a comment..."></TextArea>
                         <p className={Class.bottomPart__counter} >{text.length}/{maxSymbols}</p>

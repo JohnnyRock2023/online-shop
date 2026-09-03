@@ -6,7 +6,7 @@ const DeliveryListItem = ({delivery}) => {
     return (
         <li className={Class.DeliveryListItem}>
             <div className={Class.DeliveryLogo}>
-                <img src={Uploads.getImageLink(delivery.logo)} alt={delivery.logo}></img>
+                <img src={delivery.logo} alt={delivery.logo}></img>
             </div>
             <div className={Class.DeliveryInfo}>
                 <div className={Class.DeliveryName}>

@@ -4,9 +4,11 @@ import {useNavigate} from "react-router-dom";
 import Uploads from "../../../../API/Uploads";
 import UserContext from "../../../../Context/UserContext";
 
+import defaultProfile from '..//..//..//../DefaultImages/default-profile.jpg'
+
 const ProfileHeader = () => {
     const {user, setUser} = useContext(UserContext);
-    const [profileImg, setProfileImg] = useState('default-profile.jpg')
+    const [profileImg, setProfileImg] = useState('')
 
     useEffect(() => {
         if (user?.image) {
@@ -17,7 +19,7 @@ const ProfileHeader = () => {
     const navigate = useNavigate();
 
     return (
-        <img className={Class.profileHeader} src={Uploads.getImageLink(profileImg)} alt={profileImg} onClick={()=> user? navigate('/profile') : navigate('/auth/login')}></img>
+        <img className={Class.profileHeader} src={profileImg ? Uploads.getImageLink(profileImg): defaultProfile} alt={profileImg} onClick={()=> user? navigate('/profile') : navigate('/auth/login')}></img>
     );
 };
 

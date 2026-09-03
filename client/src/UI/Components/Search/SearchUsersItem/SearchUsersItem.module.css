@@ -7,7 +7,7 @@
     width: 100%;
     background: var(--color-black);
     min-height: 50px;
-    margin: 3px 0;
+    margin: 5px 0;
     border-radius: var(--radius-md);
     color: var(--color-text);
 }

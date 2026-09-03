@@ -57,7 +57,7 @@
     width: 100%;
     max-height: 50vh;
     flex-direction: column;
-    background: var(--color-primary-background);
+    background: var(--color-surface);
     border-radius: var(--radius-md);
     top: calc(100% + 20px);
     padding: 0 5px;

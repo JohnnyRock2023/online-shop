@@ -8,3 +8,13 @@
     overflow: hidden;
     background-color: var(--color-background);
 }
+
+.contentAdmin {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}

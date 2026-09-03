@@ -8,6 +8,7 @@ import Message from "../../../../../Modals/Message/Message";
 import ChooseImage from "../../ChooseImage/ChooseImage";
 import {handleRequest} from "../../../../../../utils/handleRequest";
 import Search from "../../../../../Components/Search/Search";
+import defaultItem from '..//..//..//..//..//..//DefaultImages/default-item.png'
 
 const ItemsAdmin = () => {
     const [item, setItem] = React.useState(null);
@@ -20,7 +21,7 @@ const ItemsAdmin = () => {
     const [visible, setVisible] = React.useState(false);
     const [message, setMessage] = React.useState("");
 
-    const [image, setImage] = React.useState("default-item.png");
+    const [image, setImage] = React.useState("");
 
 
     useEffect(() => {
@@ -34,7 +35,9 @@ const ItemsAdmin = () => {
 
     const addItem = async () => {
         const formData = new FormData();
-        formData.append("image", image);
+        if (image) {
+            formData.append("image", image);
+        }
         formData.append("name", name);
         formData.append("price", price);
         formData.append("description", description);
@@ -85,7 +88,7 @@ const ItemsAdmin = () => {
         setItem(null);
         setName("");
         setPrice("");
-        setImage("default-item.png")
+        setImage("")
         setDescription("");
     }
 
@@ -95,7 +98,7 @@ const ItemsAdmin = () => {
             <Search fetch={ItemService.searchItems} setItem={setItem} className={Class.search} />
             <div className={Class.content}>
                 <div className={Class.itemData}>
-                    <ChooseImage setImage={setImage} defaultImage={image}></ChooseImage>
+                    <ChooseImage setImage={setImage} defaultImage={defaultItem}></ChooseImage>
                     <LabelInput label="Name" value={name} onChange={e => setName(e.target.value)}/>
                     <LabelInput label="Price" type='number' value={price} onChange={e => setPrice(e.target.value)}/>
                     <LabelTextArea label="Description" value={description} setValue={setDescription}/>

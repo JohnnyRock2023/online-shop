@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Class from './Users.module.css'
 import CustomButton from "../../../../../Components/CustomButton/CustomButton";
 import UserService from "../../../../../../API/UserService";
@@ -8,27 +8,27 @@ import LabelSelect from "../../LabelSelect/LabelSelect";
 import ChooseImage from "../../ChooseImage/ChooseImage";
 import Search from "../../../../../Components/Search/Search";
 import {handleRequest} from "../../../../../../utils/handleRequest";
+import defaultProfile from '..//..//..//..//..//..//DefaultImages/default-profile.jpg'
 
 const Users = () => {
 
     const options = ['user', 'admin', 'super']
-    const [user, setUser] = React.useState("");
-    const token = localStorage.getItem('token');
+    const [user, setUser] = useState("");
 
-    const [username, setUsername] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [email, setEmail] = React.useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
 
-    const [message, setMessage] = React.useState("");
-    const [messageVisible, setMessageVisible] = React.useState(false);
+    const [message, setMessage] = useState("");
+    const [messageVisible, setMessageVisible] = useState(false);
 
-    const [role, setRole] = React.useState("user");
-    const [image, setImage] = React.useState("default-profile.jpg");
+    const [role, setRole] = useState("user");
+    const [image, setImage] = useState("");
 
 
     useEffect(()=>{
         if (user) {
-            setImage(user.image);
+            setImage(user.image ? user.image : "");
             setUsername(user.name);
             setPassword(user.password);
             setEmail(user.email);
@@ -47,7 +47,7 @@ const Users = () => {
             formData.append("image", image);
         }
 
-        const success = await UserService.addUser(token, formData);
+        const success = await UserService.addUser(formData);
         if (success) {
             setMessage("The new user has been added successfully!");
         }
@@ -69,7 +69,7 @@ const Users = () => {
             formData.append("image", image);
         }
 
-        const {data, error} = await handleRequest(async () => await UserService.updateUser(token, formData))
+        const {data, error} = await handleRequest(async () => await UserService.updateUser(formData))
         if (!error) {
             setMessage("The user data has been updated successfully!");
         }
@@ -80,7 +80,7 @@ const Users = () => {
     }
 
     const deleteUser = async () => {
-        const {data, error} = await UserService.deleteUser(token, user.id);
+        const {data, error} = await UserService.deleteUser(user.id);
         if (!error) {
             setMessage("The user has been deleted successfully!");
             clearFields();
@@ -97,7 +97,7 @@ const Users = () => {
         setPassword("")
         setEmail("")
         setRole('user')
-        setImage('default-profile.jpg')
+        setImage('')
     }
 
     return (
@@ -106,7 +106,7 @@ const Users = () => {
             <Search fetch={UserService.searchUsers} setItem={setUser} className={Class.search}/>
             <div className={Class.content}>
                 <div className={Class.userData}>
-                    <ChooseImage setImage={setImage} defaultImage={image} className={Class.chooseImage}></ChooseImage>
+                    <ChooseImage setImage={setImage} defaultImage={defaultProfile} className={Class.chooseImage}></ChooseImage>
                     <LabelInput label="Username" value={username} onChange={e => setUsername(e.target.value)}></LabelInput>
                     <LabelInput label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
                     <LabelInput label="Email" value={email} onChange={e => setEmail(e.target.value)}></LabelInput>

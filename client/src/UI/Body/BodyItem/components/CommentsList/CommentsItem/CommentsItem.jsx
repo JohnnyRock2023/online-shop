@@ -2,7 +2,8 @@ import React, {useRef} from 'react';
 import Class from "./CommentsItem.module.css";
 import Uploads from "../../../../../../API/Uploads";
 import trashcan from './icons/trash.png'
-import comments from "../Comments";
+
+import defaultProfile from "..//..//..//..//..//..//DefaultImages/default-profile.jpg";
 
 const CommentsItem = ({comment, onDelete}) => {
 
@@ -60,7 +61,7 @@ const CommentsItem = ({comment, onDelete}) => {
 
                 className={Class.comment} style={{transform:`translateX(${offset}px)`}} key={comment?.id}>
                 <div className={Class.commentsListItemPerson}>
-                    <img src={Uploads.getImageLink(comment?.image)} alt={comment?.image}></img>
+                    <img src={comment?.image ? Uploads.getImageLink(comment?.image): defaultProfile} alt={comment?.image}></img>
                     <h3 className={Class.commentsListItemPerson__title} >{comment?.name}</h3>
                     <time className={Class.commentDate}>{formattedDate}</time>
                 </div>

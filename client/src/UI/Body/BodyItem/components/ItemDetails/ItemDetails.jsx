@@ -6,11 +6,15 @@ import CartService from "../../../../../API/CartService";
 import ItemService from "../../../../../API/ItemService";
 import {handleRequest} from "../../../../../utils/handleRequest";
 
+import novapost from './icons/novapost.png'
+import fedex from './icons/fedex.png'
+import meest from './icons/meest.jpg'
+
 const ItemDetails = ({item, cartItems, setCartItems, inCart, setInCart}) => {
 
-    const deliveries = [{id: 1, name: "Nova post", price: "15", logo: "novapost.png", date: 'Tomorrow'},
-        {id: 2, name: "Meest", price: "10",logo: "meest.jpg", date: 'In 2 days'},
-        {id: 3, name: "FedEx", price: "10", logo: "fedex.png", date: 'In 2 days'}]
+    const deliveries = [{id: 1, name: "Nova post", price: "15", logo: novapost , date: 'Tomorrow'},
+        {id: 2, name: "Meest", price: "10",logo: meest, date: 'In 2 days'},
+        {id: 3, name: "FedEx", price: "10", logo: fedex, date: 'In 2 days'}]
 
     const removeCartItem = async () => {
         const token = localStorage.getItem("token");

@@ -5,8 +5,7 @@ export async function handleRequest(request) {
         return {data: response?.data?.data, error: null};
     }
     catch (err) {
-        console.log(err);
-        const message = err || "Something went wrong";
+        const message = err?.response?.data?.message || "Something went wrong";
         return {data: null, error: message}
     }
 }

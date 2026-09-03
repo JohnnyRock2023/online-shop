@@ -5,7 +5,7 @@ import BodyLogin from "../UI/Body/BodyLogin/BodyLogin";
 const Login = () => {
     return (
         <PageTemplate>
-            <BodyLogin />
+            <BodyLogin/>
         </PageTemplate>
     );
 };

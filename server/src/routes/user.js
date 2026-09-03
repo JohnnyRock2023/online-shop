@@ -22,7 +22,7 @@ const checkOwnerOrSuperRole = async (req, res, next) => {
 }
 
 router.get('/search', checkOwnerOrSuperRole, asyncHandler(userController.searchUsers))
-router.get('/', asyncHandler(userController.getUserData))
+router.get('/', checkOwnerOrSuperRole, asyncHandler(userController.getUserData))
 router.post('/', checkOwnerOrSuperRole, upload.single('image'), asyncHandler(userController.addUser))
 router.put('/', checkOwnerOrSuperRole, upload.single('image'), asyncHandler(userController.updateUserData))
 router.delete('/', checkOwnerOrSuperRole, asyncHandler(userController.deleteUser))

@@ -1,6 +1,6 @@
 import React from 'react';
 import Class from './ChooseImage.module.css'
-import Uploads from "../../../../../API/Uploads";
+import defaultItem from '..//..//..//..//..//DefaultImages/default-item.png'
 
 const ChooseImage = ({setImage, defaultImage, className}) => {
 
@@ -19,7 +19,7 @@ const ChooseImage = ({setImage, defaultImage, className}) => {
 
     return (
         <div className={clsName.join(' ')}>
-            <img className={Class.chooseImage__image} src={preview ? preview: Uploads.getImageLink(defaultImage)} alt="" />
+            <img className={Class.chooseImage__image} src={preview ? preview: defaultImage} alt="preview ? preview: defaultItem" />
             <input className={Class.chooseImage__input} type='file' accept="image/*" onChange={handleChooseImage}/>
         </div>
     );

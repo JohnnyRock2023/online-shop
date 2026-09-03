@@ -34,12 +34,8 @@ exports.signup = async (req, res) => {
 }
 
 exports.decodeToken = (req) => {
-    try {
-        const Authorization = req.headers.authorization;
-        const token = Authorization.split(' ')[1]
-        return jwt.verify(token, process.env.JWT_SECRET_KEY)
-    }
-    catch (err) {
-        console.error(err);
-    }
+    const Authorization = req?.headers?.authorization;
+    const token = Authorization.split(' ')[1]
+    if (!token || token === 'null') return null;
+    return jwt.verify(token, process.env.JWT_SECRET_KEY)
 }

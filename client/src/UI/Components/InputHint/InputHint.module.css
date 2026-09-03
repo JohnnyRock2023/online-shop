@@ -6,8 +6,10 @@
     width: 100%;
     min-height: 30px;
     line-height: 30px;
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     color: var(--color-danger);
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-normal);
     margin: 5px 0 0 0;
 }
 

@@ -6,7 +6,7 @@ const path = require("path");
 const deleteImage = async (id) => {
     const image = await query('SELECT image FROM public."Items" WHERE id = $1', [id])
     const imageName = image.rows[0].image
-    if (imageName !== 'default-item.png') {
+    if (imageName) {
         const imagePath = path.join(__dirname, "..//..//uploads", imageName)
         fs.unlink(imagePath, (err) => {
             if (err) {
