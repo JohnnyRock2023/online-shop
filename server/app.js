@@ -1,19 +1,21 @@
 const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
-const itemsRouter = require('./src/routes/items.js');
+const productRouter = require('./src/routes/product.js');
 const cartRouter = require('./src/routes/cart.js');
 const commentsRouter = require('./src/routes/comments.js');
 const authRouter = require("./src/routes/auth.js");
 const userRouter = require("./src/routes/user.js");
+const orderRouter = require("./src/routes/order.js");
 
 dotenv.config();
 
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use('/api/items', itemsRouter)
+app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/orders', orderRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)

@@ -1,8 +1,8 @@
 import React from 'react';
 import Class from './NavbarItem.module.css';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-const NavbarItem = ({children, onClick, admin}) => {
+const NavbarItem = ({children, to, admin}) => {
     let clsName = [Class.navbarItem]
 
     if (admin) {
@@ -10,9 +10,9 @@ const NavbarItem = ({children, onClick, admin}) => {
     }
 
     return (
-        <li className={clsName.join(' ')} onClick={onClick}>
+        <Link className={clsName.join(' ')} to={to}>
             {children}
-        </li>
+        </Link>
     );
 };
 

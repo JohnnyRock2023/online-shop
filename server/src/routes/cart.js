@@ -4,6 +4,6 @@ const {asyncHandler} = require("../utils/asyncHandler");
 const router = express.Router();
 
 router.get('/', asyncHandler(controller.getCart));
-router.delete('/', asyncHandler(controller.delFromCart));
+router.delete('/:id', asyncHandler(controller.delFromCart));
 
 module.exports = router;

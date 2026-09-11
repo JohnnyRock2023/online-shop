@@ -1,16 +1,15 @@
 .navbarItem {
     position: relative;
     height: 100%;
-    width: 80px;
     border-radius: var(--radius-sm);
     align-content: center;
     text-align: center;
-    margin: 0 5px 0 5px;
-    padding: 0;
+    padding: 0 10px;
     font-size: var(--text-lg);
     font-family: var(--font-heading);
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
+    text-decoration: none;
 }
 
 .navbarItem:hover {
@@ -22,3 +21,5 @@
 .navbarItem.admin {
     background-color: var(--color-success);
 }
+
+

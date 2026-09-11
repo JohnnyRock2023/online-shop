@@ -1,0 +1,22 @@
+.cartHeader {
+    position: relative;
+    min-width: 45px;
+    min-height: 45px;
+    background: url("shopping-cart.png") center center no-repeat white;
+    background-size: 70%;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+@container (width < 45px) {
+    .cartHeader {
+        display: none;
+        width: 200px;
+    }
+}
+
+.cartHeader:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

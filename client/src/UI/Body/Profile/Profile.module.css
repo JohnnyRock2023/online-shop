@@ -1,0 +1,25 @@
+.bodyProfile {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    width: 100%;
+    gap: 30px;
+    background-color: var(--color-background);
+}
+
+.contentProfile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-width: 70vw;
+}
+
+.LogoutBtn {
+    color: var(--color-text);
+    background: var(--color-danger);
+}

@@ -3,8 +3,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 100%;
+    width: 100%;
     min-height: 250px;
+    overflow: hidden;
     background: var(--color-black);
     flex-shrink: 0;
     justify-content: center;
@@ -15,13 +16,14 @@
     width: 90%;
     flex-direction: row;
     justify-content: space-between;
+    overflow: hidden;
     position: relative;
 }
 
 .social_media {
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    width: 450px;
     min-height: 200px;
     align-items: center;
     margin: 10px;

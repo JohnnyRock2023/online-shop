@@ -1,0 +1,105 @@
+.bodyItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: var(--color-background);
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 70px);
+}
+
+.bodyItem__title {
+    color: var(--color-text);
+    font-size: var(--text-xl);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    max-height: 50px;
+    margin: 20px 0;
+}
+
+.bodyItemContent {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    min-height: 450px;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 50px
+}
+
+.bodyItemImages {
+    position: relative;
+    display: flex;
+    min-width: 100px;
+    max-width: 800px;
+    padding: 0 50px;
+    height: 450px;
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.bodyItemImages__image{
+    position: relative;
+    max-width: 800px;
+    min-width: 100px;
+    min-height: 100px;
+    max-height: 450px;
+    border-radius: var(--radius-lg);
+    object-fit: contain;
+}
+
+.bodyItemDescription {
+    position: relative;
+    max-width: 90%;
+    min-width: 90%;
+    margin-bottom: 50px;
+    border-radius: var(--radius-lg);
+    color: var(--color-text);
+}
+
+.bodyItemDescription__title {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+}
+
+.description {
+    position: relative;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-family: var(--font-main);
+    background: var(--color-black);
+}
+
+.description__text {
+    overflow-wrap: normal;
+    white-space: pre-line;
+    padding: 25px;
+    margin: 0;
+}
+
+
+.bodyItemComments {
+    position: relative;
+    display: flex;
+    min-width: 90%;
+    max-width: 90%;
+    flex-direction: column;
+    margin-bottom: 50px;
+    border-radius: var(--radius-lg);
+    color: var(--color-text);
+}
+
+.commentsList__title {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+}
+

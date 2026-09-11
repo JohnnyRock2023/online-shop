@@ -1,6 +1,6 @@
 import React from 'react';
 import Class from './CartListItem.module.css'
-import Counter from "../../../../Components/Counter/Counter";
+import Counter from "../../../../GeneralComponents/Counter/Counter";
 import Uploads from "../../../../../API/Uploads";
 
 import CartService from "../../../../../API/CartService";

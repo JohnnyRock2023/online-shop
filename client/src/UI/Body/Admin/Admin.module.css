@@ -1,0 +1,22 @@
+.bodyAdmin {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 30px;
+    min-height: calc(100vh - 70px);
+    overflow: hidden;
+    background-color: var(--color-background);
+}
+
+.contentAdmin {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex: 1;
+    min-width: 70vw;
+}

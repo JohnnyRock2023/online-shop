@@ -1,11 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 import Class from './Cart.module.css'
 import CartList from "./CartList/CartList";
-import CustomButton from "../../Components/CustomButton/CustomButton";
+import CustomButton from "../../GeneralComponents/CustomButton/CustomButton";
 import useFetching from "../../../Hooks/useFetching";
 import CartService from "../../../API/CartService";
-import {useParams} from "react-router-dom";
-import Loader from "../../Components/Loader/Loader";
+import Loader from "../../GeneralComponents/Loader/Loader";
 import CartContext from "../../../Context/CartContext";
 import {handleRequest} from "../../../utils/handleRequest";
 

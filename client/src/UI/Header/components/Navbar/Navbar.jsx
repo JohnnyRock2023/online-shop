@@ -11,10 +11,10 @@ const Navbar = (props) => {
     const {user} = useContext(UserContext)
 
     return (
-        <ul key={props.id}  className={Class.navbar}>
+        <nav key={props.id}  className={Class.navbar}>
             {buttons.map((name, index) => <NavbarItem key={index}>{name}</NavbarItem>)}
-            {(user?.role === 'admin' || user?.role === 'super') && <NavbarItem key='5' admin={true} onClick={() => navigate("/admin")}>Admin</NavbarItem>}
-        </ul>
+            {(user?.role === 'admin' || user?.role === 'super') && <NavbarItem key='5' to="/admin" admin={true}>Admin</NavbarItem>}
+        </nav>
     );
 };
 

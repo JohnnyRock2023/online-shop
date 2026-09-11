@@ -1,6 +1,6 @@
 import React from 'react';
 import Class from './Message.module.css'
-import Loader from "../../Components/Loader/Loader";
+import Loader from "../../GeneralComponents/Loader/Loader";
 
 const Message = ({visible, setVisible, message}) => {
 

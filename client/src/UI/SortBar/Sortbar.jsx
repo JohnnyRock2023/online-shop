@@ -1,5 +1,5 @@
 import Class from './Sortbar.module.css'
-import CustomSelect from "../Components/CustomSelect/CustomSelect";
+import CustomSelect from "../GeneralComponents/FIELDS/CustomSelect/CustomSelect";
 
 const options = ['By name', 'From cheap to expensive', 'From expensive to cheap']
 

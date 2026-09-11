@@ -26,18 +26,18 @@ const Footer = () => {
                     <h3>Our socials</h3>
                     <hr></hr>
                     <div className={Class.social_media__elements}>
-                        {media.map(e => <Link className={Class.social_media__element} to={e.link}><img src={e.icon}></img></Link>)}
+                        {media.map((e,index) => <Link key={index} className={Class.social_media__element} to={e.link}><img src={e.icon}></img></Link>)}
                     </div>
                 </div>
                 <ul className={Class.block}>
                     <h3>Information about the company</h3>
                     <hr></hr>
-                    {info.map(e => <li className={Class.block__element}><Link className={Class.block__element__link}>{e}</Link></li>)}
+                    {info.map((e,index) => <li key={index} className={Class.block__element}><Link className={Class.block__element__link}>{e}</Link></li>)}
                 </ul>
                 <ul className={Class.block}>
                     <h3>Help</h3>
                     <hr></hr>
-                    {help.map(e => <li className={Class.block__element}><Link className={Class.block__element__link}>{e}</Link></li>)}
+                    {help.map((e,index) => <li key={index} className={Class.block__element}><Link className={Class.block__element__link}>{e}</Link></li>)}
                 </ul>
                 <ul className={Class.block}>
                     <h3>For partners</h3>

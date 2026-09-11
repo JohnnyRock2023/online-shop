@@ -34,6 +34,7 @@ An online store with a product catalog, shopping cart, and order checkout. A ful
 **Frontend** (`client/`)
 - React
 - React Router
+- Vite
 - Context API (`src/Context`, `src/Provider`)
 - Custom hooks (`src/Hooks`)
 - Axios
@@ -60,21 +61,23 @@ online-store/
 │   │   ├── API/             # Backend API calls
 │   │   ├── Context/         # React Context providers
 │   │   ├── Hooks/           # Custom hooks
-│   │   ├── Pages/           # Application pages
 │   │   ├── Provider/        # Context/state providers
 │   │   ├── Styles/          # Global styles
 │   │   ├── UI/              # UI components
 │   │   ├── App.jsx
-│   │   └── index.js
-│   └── package.json
+│   │   └── index.jsx
+│   ├── .env                 # Environment variables (not committed)
+│   ├── index.html  
+│   ├── package.json
+│   └── vite.config.js 
 ├── server/                  # Backend (Node.js/Express)
 │   ├── src/
 │   │   ├── controllers/     # Request handling logic
-│   │   ├── db/               # Database connection/config
+│   │   ├── db/              # Database connection/config
 │   │   ├── routes/          # API routes
 │   │   └── uploads/
-│   ├── uploads/              # Uploaded files (images, etc.)
-│   ├── .env                  # Environment variables (not committed)
+│   ├── uploads/             # Uploaded files (images, etc.)
+│   ├── .env                 # Environment variables (not committed)
 │   └── app.js
 └── README.md
 ```
@@ -101,14 +104,20 @@ cd server
 npm install
 
 # Frontend
-cd ../client
+cd client
 npm install
 ```
 
 ### 3. Set up environment variables
 
-Create a `.env` file in the `server` folder based on `.env.example`:
+Create `.env` files in the `client` and `server` folders based on `.env.example`:
 
+**`client/.env`**
+```env
+VITE_API_URL=your_api_url (default: http://localhost:5000)
+```
+
+**`server/.env`**
 ```env
 PORT=5000
 DATABASE_URL=your_database_connection_string
@@ -122,29 +131,27 @@ JWT_SECRET=your_secret_key
 npm start
 
 # Frontend (from the client folder, in a separate terminal)
-npm start
+npm run dev
 ```
 
-The app will be available at `http://localhost:3000`, the API at `http://localhost:5000/api`.
+The app will be available at `http://localhost:5173`, the API at `http://localhost:5000/api`.
 
 ## 📡 API Endpoints
 
 All backend routes are prefixed with `/api` to distinguish them from frontend routes.
 
-| Method | Endpoint              | Description                     |
-|--------|-----------------------|---------------------------------|
-| GET    | `/api/products`       | Get list of products            |
-| GET    | `/api/products/:id`   | Get a single product            |
-| POST   | `/api/auth/signup`    | Register a new user             |
-| POST   | `/api/auth/login`     | Log in                          |
-| GET    | `/api/cart`           | Get current user's cart         |
-| POST   | `/api/cart`           | Add item to cart                |
-| PATCH  | `/api/cart/:id`       | Update item quantity in cart    |
-| DELETE | `/api/cart/:id`       | Remove item from cart           |
-| GET    | `/api/comments/:id`   | Get reviews for a product       |
-| POST   | `/api/comments/:id`   | Leave a review about a product  |
-| DELETE | `/api/comments/:id`   | Delete a review about a product |
-| POST   | `/api/orders`         | Place an order                  |
+| Method | Endpoint            | Description                     |
+|--------|---------------------|---------------------------------|
+| GET    | `/api/products`     | Get list of products            |
+| GET    | `/api/products/:id` | Get a single product            |
+| POST   | `/api/auth/signup`  | Register a new user             |
+| POST   | `/api/auth/login`   | Log in                          |
+| GET    | `/api/cart`         | Get current user's cart         |
+| POST   | `/api/cart`         | Add product to cart             |
+| DELETE | `/api/cart/:id`     | Remove product from cart        |
+| GET    | `/api/comments/:id` | Get reviews for a product       |
+| POST   | `/api/comments/:id` | Leave a review about a product  |
+| DELETE | `/api/comments`     | Delete a review about a product |
 
 
 ## 🗺 Roadmap

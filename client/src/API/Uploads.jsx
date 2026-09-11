@@ -1,6 +1,6 @@
 
 export default class Uploads {
     static getImageLink = (name) => {
-        return `http://localhost:5000/api/uploads/${name}`;
+        return `${import.meta.env.VITE_API_URL}/api/uploads/${name}`;
     }
 }
