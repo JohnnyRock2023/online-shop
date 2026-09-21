@@ -8,6 +8,7 @@ import ChooseImage from "../../../GeneralComponents/ChooseImage/ChooseImage";
 import LabelInput from "../../../GeneralComponents/FIELDS/LabelInput/LabelInput";
 import CustomButton from "../../../GeneralComponents/CustomButton/CustomButton";
 import defaultProfile from '..//..//..//..//DefaultImages/default-profile.jpg'
+import Uploads from "../../../../API/Uploads";
 
 
 const Account = () => {
@@ -53,9 +54,9 @@ const Account = () => {
         <div className={Class.account}>
             <Message message={message} visible={messageVisible} setVisible={setMessageVisible} />
                 <div className={Class.userData}>
-                    <ChooseImage setImage={setImage} defaultImage={defaultProfile} className={Class.chooseImage}></ChooseImage>
+                    <ChooseImage setImage={setImage} defaultImage={image? Uploads.getImageLink(image): defaultProfile} className={Class.chooseImage}></ChooseImage>
                     <LabelInput label="Username" value={username} onChange={e => setUsername(e.target.value)}></LabelInput>
-                    <LabelInput label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
+                    <LabelInput type="password" label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
                     <LabelInput label="Email" value={email} onChange={e => setEmail(e.target.value)}></LabelInput>
                 </div>
                 <div className={Class.buttons}>

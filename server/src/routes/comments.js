@@ -20,8 +20,8 @@ const checkAdminRoleOrOwner = async (req, res, next) => {
 }
 
 
-router.get('/:id', asyncHandler(controller.getComments));
-router.post('/:id', asyncHandler(controller.addComment));
-router.delete('/', checkAdminRoleOrOwner, asyncHandler(controller.deleteComment));
+router.get('/products/:productId/comments', asyncHandler(controller.getComments));
+router.post('/products/:productId/comments', asyncHandler(controller.addComment));
+router.delete('/:commentId', checkAdminRoleOrOwner, asyncHandler(controller.deleteComment));
 
 module.exports = router;

@@ -10,3 +10,6 @@ const pool = new Pool({connectionString: url})
 exports.query = (text, params) => {
     return pool.query(text, params)
 }
+exports.connect = () => {
+    return pool.connect(null, (err, client) => {})
+}

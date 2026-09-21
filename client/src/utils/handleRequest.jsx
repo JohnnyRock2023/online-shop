@@ -6,6 +6,6 @@ export async function handleRequest(request) {
     }
     catch (err) {
         const message = err?.response?.data?.message || "Something went wrong";
-        return {data: null, error: message}
+        return {data: err?.response?.data?.data, error: message}
     }
 }

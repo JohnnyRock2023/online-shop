@@ -7,6 +7,7 @@ const commentsRouter = require('./src/routes/comments.js');
 const authRouter = require("./src/routes/auth.js");
 const userRouter = require("./src/routes/user.js");
 const orderRouter = require("./src/routes/order.js");
+const paymentRouter = require("./src/routes/payment.js");
 
 dotenv.config();
 
@@ -16,7 +17,8 @@ app.use(express.json())
 app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/orders', orderRouter)
-app.use('/api/comments', commentsRouter)
+app.use('/api/payment', paymentRouter)
+app.use('/api/', commentsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/uploads', express.static('./uploads'))

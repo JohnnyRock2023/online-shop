@@ -21,6 +21,7 @@ const checkAdminRole = async (req, res, next) => {
     }
 }
 
+
 router.get('/search', asyncHandler(controller.searchProducts));
 router.get('/:id', asyncHandler(controller.getProduct));
 router.get('/', asyncHandler(controller.getProducts));

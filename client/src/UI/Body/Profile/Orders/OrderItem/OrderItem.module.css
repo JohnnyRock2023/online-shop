@@ -1,0 +1,49 @@
+.orderItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    width: 100%;
+    gap: 15px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.orderInfo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.orderId, .orderDate, .orderStatus {
+    position: relative;
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-normal);
+}
+
+.orderImages {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.productImage {
+    position: relative;
+    max-width: 65px;
+    max-height: 65px;
+    object-fit: contain;
+}
+
+

@@ -1,19 +1,56 @@
-.Input {
+.input {
     position: relative;
     width: 100%;
     margin-bottom: 30px;
 }
 
-.Input input {
-    position: relative;
-    border-radius: var(--radius-md);
-    border: none;
+.input_row {
+    display: flex;
+    flex-direction: row;
     width: 100%;
     height: 40px;
+}
+
+.input__input {
+    position: relative;
+    display: flex;
+    flex: 1;
+    border-radius: var(--radius-md);
+    border: none;
     padding-left: 10px;
     font-size: var(--text-md);
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
     outline: none;
     line-height: 40px;
+    background-color: var(--color-primary-background);
+}
+
+.input__input.password {
+    border-radius: var(--radius-md) 0 0 var(--radius-md) ;
+}
+
+.input__button {
+    display: none;
+    border: none;
+    min-width: 40px;
+    background-color: var(--color-primary-background);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background-size: 60%;
+    padding: 0 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.input__button.open {
+    background-image: url("icons/openEye.png");
+}
+
+.input__button.close {
+    background-image: url("icons/closeEye.png");
+}
+
+.input__button.visible {
+    display: block;
 }

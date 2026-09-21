@@ -24,8 +24,4 @@ export default class ProductService {
     static changeProduct = async (token, id, value) => {
         return await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${id}`, value, {headers: {Authorization: `Bearer ${token}`}});
     }
-
-    static addToCart = async (token, product_id, count) => {
-        return await axios.post(`${import.meta.env.VITE_API_URL}/api/products/${product_id}`, [product_id, count], {headers: {Authorization: `Bearer ${token}`}});
-    }
 }

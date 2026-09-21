@@ -6,9 +6,14 @@ An online store with a product catalog, shopping cart, and order checkout. A ful
 
 ## 📸 Demo
 
+
+![Screenshot](./screenshots/signup.png)
+![Screenshot](./screenshots/login.png)
 ![Screenshot](./screenshots/items.png)
 ![Screenshot](./screenshots/item.png)
 ![Screenshot](./screenshots/cart.png)
+![Screenshot](./screenshots/profileAccount.png)
+![Screenshot](./screenshots/profileOrders.png)
 ![Screenshot](./screenshots/adminUser.png)
 ![Screenshot](./screenshots/adminItems.png)
 
@@ -19,8 +24,8 @@ An online store with a product catalog, shopping cart, and order checkout. A ful
 - [x] Product detail page
 - [x] Shopping cart
 - [x] User registration and authentication
-- [ ] Order checkout
-- [ ] Order history
+- [x] Order checkout
+- [x] Order history
 - [x] Admin panel for product management
 
 ## 🚧 Known Limitations
@@ -69,7 +74,7 @@ online-store/
 │   ├── .env                 # Environment variables (not committed)
 │   ├── index.html  
 │   ├── package.json
-│   └── vite.config.js 
+│   └── vite.config.mjs 
 ├── server/                  # Backend (Node.js/Express)
 │   ├── src/
 │   │   ├── controllers/     # Request handling logic
@@ -140,23 +145,37 @@ The app will be available at `http://localhost:5173`, the API at `http://localho
 
 All backend routes are prefixed with `/api` to distinguish them from frontend routes.
 
-| Method | Endpoint            | Description                     |
-|--------|---------------------|---------------------------------|
-| GET    | `/api/products`     | Get list of products            |
-| GET    | `/api/products/:id` | Get a single product            |
-| POST   | `/api/auth/signup`  | Register a new user             |
-| POST   | `/api/auth/login`   | Log in                          |
-| GET    | `/api/cart`         | Get current user's cart         |
-| POST   | `/api/cart`         | Add product to cart             |
-| DELETE | `/api/cart/:id`     | Remove product from cart        |
-| GET    | `/api/comments/:id` | Get reviews for a product       |
-| POST   | `/api/comments/:id` | Leave a review about a product  |
-| DELETE | `/api/comments`     | Delete a review about a product |
+| Method | Endpoint                     | Description                   |
+|--------|------------------------------|-------------------------------|
+| GET    | `/api/products`              | Get list of products          |
+| GET    | `/api/products/:id`          | Get a single product          |
+| GET    | `/api/products/search`       | Search for a product          |
+| POST   | `/api/products`              | Add a new product             |
+| PUT    | `/api/products/:id`          | Update product data           |
+| DELETE | `/api/products/:id`          | Delete a product              |
+| GET    | `/api/user`                  | Get user data                 |
+| GET    | `/api/user/search`           | Search for a user             |
+| POST   | `/api/user`                  | Add a new user                |
+| PUT    | `/api/user/:id`              | Update a user data            |
+| DELETE | `/api/user/:id`              | Delete a user                 |
+| POST   | `/api/auth/signup`           | Register a new user           |
+| POST   | `/api/auth/login`            | Log in                        |
+| GET    | `/api/cart`                  | Get current user's cart       |
+| POST   | `/api/cart/:id`              | Add product to cart           |
+| DELETE | `/api/cart/:id`              | Remove product from cart      |
+| GET    | `/api/products/:id/comments` | Get reviews for a product     |
+| POST   | `/api/products/:id/comments` | Leave a review for a product  |
+| DELETE | `/api/comments/:id`          | Delete a product review       |
+| GET    | `/api/orders`                | Get user orders               |
+| GET    | `/api/orders/:id`            | Get a user's order            |
+| POST   | `/api/orders`                | Create an order               |
+| DELETE | `/api/orders/:id`            | Delete an order               |
+| POST   | `/api/payment/:id`           | Create a payment for an order |
 
 
 ## 🗺 Roadmap
 
-- [ ] Implement order checkout and payment
+- [x] Implement order checkout and payment
 - [ ] Add error handling across all endpoints
 - [x] Add admin panel
 - [ ] Write unit tests for the backend

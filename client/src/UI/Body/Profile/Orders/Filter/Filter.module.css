@@ -1,0 +1,29 @@
+.filter {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style: none;
+    gap: 10px;
+    margin: 10px 20px;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: var(--font-weight-normal);
+}
+
+.filter__item {
+    padding: 5px 10px;
+    background: var(--color-item-background);
+    border-radius: var(--radius-md);
+}
+
+.filter__item.active {
+    color: var(--color-primary-text);
+    background: var(--color-primary-background);
+}
+
+.filter__item:hover {
+    cursor: pointer;
+}

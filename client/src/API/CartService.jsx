@@ -14,6 +14,10 @@ export default class CartService {
        return await axios.delete(`${import.meta.env.VITE_API_URL}/api/cart/${item_id}`, {headers: {Authorization: `Bearer ${token}`}});
     }
 
+    static addToCart = async (token, product_id, count) => {
+        return await axios.post(`${import.meta.env.VITE_API_URL}/api/cart/${product_id}`, [product_id, count], {headers: {Authorization: `Bearer ${token}`}});
+    }
+
     static getSummaryCart = (items) => {
         if (!items) return 0;
         let sum = 0;

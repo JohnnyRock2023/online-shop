@@ -9,10 +9,7 @@ import Product from "./UI/Body/Product/Product";
 import Profile from "./UI/Body/Profile/Profile";
 import Login from "./UI/Body/Login/Login";
 import Admin from "./UI/Body/Admin/Admin";
-
-function SignUp() {
-    return null;
-}
+import SignUp from "./UI/Body/SignUp/SignUp";
 
 const App = () => {
     return (

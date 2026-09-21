@@ -9,6 +9,7 @@ import ChooseImage from "../../../../GeneralComponents/ChooseImage/ChooseImage";
 import {handleRequest} from "../../../../../utils/handleRequest";
 import Search from "../../../../GeneralComponents/Search/Search";
 import defaultItem from '../../../../../DefaultImages/default-item.png'
+import Uploads from "../../../../../API/Uploads";
 
 const ProductsAdmin = () => {
     const [item, setItem] = React.useState(null);
@@ -43,7 +44,7 @@ const ProductsAdmin = () => {
         formData.append("description", description);
 
         setVisible(true);
-        const {data, error} = await handleRequest(async () => await ProductService.addItem(token, formData));
+        const {data, error} = await handleRequest(async () => await ProductService.addProduct(token, formData));
         if (!error) {
             setMessage('A new item has been added successfully!');
         }
@@ -63,7 +64,7 @@ const ProductsAdmin = () => {
         }
 
         setVisible(true);
-        const {data, error} = await handleRequest(async () => await ProductService.changeItem(token, item.id, formData))
+        const {data, error} = await handleRequest(async () => await ProductService.changeProduct(token, item.id, formData))
         if (!error) {
             setMessage('The item has been updated!');
         }
@@ -74,7 +75,7 @@ const ProductsAdmin = () => {
 
     const deleteItem = async () => {
         setVisible(true);
-        const {data, error} = await handleRequest(async () => await ProductService.deleteItem(token, item.id));
+        const {data, error} = await handleRequest(async () => await ProductService.deleteProduct(token, item.id));
         if (!error) {
             setMessage('The item has been deleted!');
         }
@@ -98,7 +99,7 @@ const ProductsAdmin = () => {
             <Search fetch={ProductService.searchProducts} setItem={setItem} className={Class.search} />
             <div className={Class.content}>
                 <div className={Class.itemData}>
-                    <ChooseImage setImage={setImage} defaultImage={defaultItem}></ChooseImage>
+                    <ChooseImage setImage={setImage} defaultImage={image ? Uploads.getImageLink(image): defaultItem}></ChooseImage>
                     <LabelInput label="Name" value={name} onChange={e => setName(e.target.value)}/>
                     <LabelInput label="Price" type='number' value={price} onChange={e => setPrice(e.target.value)}/>
                     <LabelTextArea label="Description" value={description} setValue={setDescription}/>
@@ -118,7 +119,9 @@ const ProductsAdmin = () => {
                     </div>
                 }
 
-                {item && <CustomButton className={Class.newItemBtn} onClick={clearFields}>Create a new item</CustomButton>}
+                {item && <div style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+                    <CustomButton className={Class.newItemBtn} onClick={clearFields}>Create a new item</CustomButton>
+                </div>}
             </div>
         </div>
     );

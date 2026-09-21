@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
-import Class from "./BodySignUp.module.css";
+import React, {useContext, useState} from 'react';
+import Class from "./SignUp.module.css";
 import CustomButton from "../../GeneralComponents/CustomButton/CustomButton";
 import {Link, useNavigate} from "react-router-dom";
 import LoginOther from "../Login/LoginOther/LoginOther";
 import Input from "../../GeneralComponents/FIELDS/Input/Input";
 import Authorization from "../../../API/Authorization";
 import InputHint from "../../GeneralComponents/FIELDS/InputHint/InputHint";
+import {handleRequest} from "../../../utils/handleRequest";
+import UserContext from "../../../Context/UserContext";
 
 const BodySignIn = () => {
     const [name, setName] = useState("");
@@ -16,26 +18,27 @@ const BodySignIn = () => {
     const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
     const [signUpError, setSignUpError] = useState('');
     const navigate = useNavigate();
+    const context = useContext(UserContext)
 
     const signup = async () => {
         if (password !== passwordConfirm) {
             setPasswordConfirmMessage("Passwords do not match");
+            return
         }
-        try {
-            await Authorization.signup(name, email, password);
-            navigate('/')
+        const {data, error} = await handleRequest(async () => await Authorization.signup(name, email, password));
+        switch (data) {
+            case "Email":
+                setEmailMessage(error);
+                break;
+            case "Account":
+                setSignUpError(error);
+                break;
+            default:
+                break;
         }
-        catch (error) {
-            switch (error.response.data.type) {
-                case "Email":
-                    setEmailMessage(error.response.data.message);
-                    break;
-                case "Account":
-                    setSignUpError(error.response.data.message);
-                    break;
-                default:
-                    break;
-            }
+        if (!error) {
+            context.fetchUser()
+            navigate("/");
         }
     }
 
@@ -45,7 +48,7 @@ const BodySignIn = () => {
                 <h1 className={Class.signUpForm__header}>Sign Up</h1>
                 <div className={Class.signUpInputs}>
                     <Input type='text' placeholder="Username"  value={name} onChange={(e) => setName(e.target.value)} />
-                    <Input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} hint={emailMessage} />
+                    <Input type='email' placeholder='Email@example.com' value={email} onChange={(e) => setEmail(e.target.value)} hint={emailMessage} />
                     <Input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Input type='password' placeholder='Repeat password' value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} hint={passwordConfirmMessage} />
                     <InputHint message={signUpError} />

@@ -15,16 +15,7 @@
 }
 
 .labelInput__input {
-    border-radius: var(--radius-md);
-    background-color: var(--color-primary-background);
-    font-size: var(--text-lg);
-    color: var(--color-primary-text);
-    font-family: var(--font-main);
-    font-weight: var(--font-weight-normal);
-    padding-left: 10px;
-    height: 50px;
-    line-height: 50px;
-    margin: 5px 0;
+    margin: 0 !important;
 }
 
 .labelInput__input:focus {

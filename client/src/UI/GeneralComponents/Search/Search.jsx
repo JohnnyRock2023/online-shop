@@ -16,7 +16,7 @@ const Search = ({fetch, onPickItem, setItem, className}) => {
     const limit = 10
 
     const [isLoading, items, setItems, hasMore, error] = usePartialFetching(
-         async (page, cursor) => await fetch(search, cursor, page, limit), loaderRef, search);
+         async (page, cursor) => await fetch(search, cursor, page, limit), loaderRef, [search], !search);
 
     let clsName = [Class.search]
     if (className) {
@@ -43,7 +43,7 @@ const Search = ({fetch, onPickItem, setItem, className}) => {
             {search &&
                 <div onMouseDown={e=> e.preventDefault()} className={Class.searchResults}>
                     {error && error.toString()}
-                    {visible && (isLoading ? <Loader color='black'/> :
+                    {visible && (isLoading ? <Loader color='white'/> :
                             (items?.at(0)?.price ?
                             items?.map(item => <SearchItemsItem key={item?.id} item={item} onClick={() => pickItem(item)} />) :
                             items?.map(item => <SearchUsersItem key={item?.id} user={item} onClick={() => pickItem(item)} />)))

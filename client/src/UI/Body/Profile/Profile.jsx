@@ -5,6 +5,7 @@ import UserContext from "../../../Context/UserContext";
 import {useNavigate} from "react-router-dom";
 import Sidebar from "../../GeneralComponents/Sidebar/Sidebar";
 import Account from "./Account/Account";
+import Orders from "./Orders/Orders";
 
 const Profile = () => {
     const {user, setUser} = useContext(UserContext);
@@ -19,15 +20,17 @@ const Profile = () => {
 
     return (
         <div className={Class.bodyProfile}>
-            <Sidebar options={["Account", "Orders", "History"]} option={selectedOption} setOption={setSelectedOption}>
+            <Sidebar options={["Account", "Orders", "Favorites", "Addresses", "Payments"]} option={selectedOption} setOption={setSelectedOption}>
                 <CustomButton onClick={logout} className={Class.LogoutBtn}>LOG OUT</CustomButton>
             </Sidebar>
             <div className={Class.contentProfile}>
                 { selectedOption &&
                     {
-                        'Account': <Account></Account>,
-                        'Orders': <></>,
-                        'History': <></>
+                        'Account': <Account/>,
+                        'Orders': <Orders/>,
+                        'Addresses': <></>,
+                        'Payments': <></>,
+                        'Favorites': <></>,
                     }[selectedOption]
                 }
             </div>

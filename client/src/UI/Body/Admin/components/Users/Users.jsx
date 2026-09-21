@@ -9,6 +9,7 @@ import ChooseImage from "../../../../GeneralComponents/ChooseImage/ChooseImage";
 import Search from "../../../../GeneralComponents/Search/Search";
 import {handleRequest} from "../../../../../utils/handleRequest";
 import defaultProfile from '../../../../../DefaultImages/default-profile.jpg'
+import Uploads from "../../../../../API/Uploads";
 
 const Users = () => {
 
@@ -106,9 +107,9 @@ const Users = () => {
             <Search fetch={UserService.searchUsers} setItem={setUser} className={Class.search}/>
             <div className={Class.content}>
                 <div className={Class.userData}>
-                    <ChooseImage setImage={setImage} defaultImage={defaultProfile} className={Class.chooseImage}></ChooseImage>
+                    <ChooseImage setImage={setImage} defaultImage={image? Uploads.getImageLink(image): defaultProfile} className={Class.chooseImage}></ChooseImage>
                     <LabelInput label="Username" value={username} onChange={e => setUsername(e.target.value)}></LabelInput>
-                    <LabelInput label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
+                    <LabelInput type="password" label="Password" value={password} onChange={e => setPassword(e.target.value)}></LabelInput>
                     <LabelInput label="Email" value={email} onChange={e => setEmail(e.target.value)}></LabelInput>
                     <LabelSelect label="Role" value={role} onChange={e => {setRole(e.target.value);}}>
                         {options.map((option, index) => <option key={index} value={option}>{option}</option>)}
