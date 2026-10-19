@@ -33,9 +33,17 @@ exports.signup = async (req, res) => {
     res.status(200).json({data: token, message: "Authentication successfully"})
 }
 
-exports.decodeToken = (req) => {
+exports.decodeToken = (req, res, skipError = false) => {
     const Authorization = req?.headers?.authorization;
+    if (!Authorization) return null;
     const token = Authorization.split(' ')[1]
     if (!token || token === 'null') return null;
-    return jwt.verify(token, process.env.JWT_SECRET_KEY)
+    try {
+        return jwt.verify(token, process.env.JWT_SECRET_KEY);
+    } catch (error) {
+        if (!skipError) {
+            res.status(401).json({error: "Token is incorrect or expired"})
+        }
+        return null;
+    }
 }

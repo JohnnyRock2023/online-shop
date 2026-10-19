@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import Sidebar from "../../GeneralComponents/Sidebar/Sidebar";
 import Account from "./Account/Account";
 import Orders from "./Orders/Orders";
+import Favorites from "./Favorites/Favorites";
 
 const Profile = () => {
     const {user, setUser} = useContext(UserContext);
@@ -30,7 +31,7 @@ const Profile = () => {
                         'Orders': <Orders/>,
                         'Addresses': <></>,
                         'Payments': <></>,
-                        'Favorites': <></>,
+                        'Favorites': <Favorites/>,
                     }[selectedOption]
                 }
             </div>

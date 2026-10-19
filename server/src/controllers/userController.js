@@ -2,6 +2,7 @@ const {query} = require("../db/db");
 const {decodeToken} = require("./authContoller");
 const path = require("path");
 const fs = require("fs");
+const {particalFetching} = require("../utils/particalFetching");
 
 const deleteImage = async (id) => {
     const image = await query('SELECT image FROM public."User" WHERE id = $1', [id])
@@ -19,26 +20,27 @@ const deleteImage = async (id) => {
 }
 
 exports.getUserData = async (req, res) => {
-    const token = decodeToken(req)
+    const token = decodeToken(req, res, true)
     const data = await query('SELECT * FROM public."User" WHERE id = $1', [token.user_id]);
     return res.status(200).json({data: data.rows[0], message: "User data found successfully"});
 }
 
 exports.searchUsers = async (req, res) => {
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(100, parseInt(req.query.limit) || 10);
     const cursor = req?.query?.cursor ? `AND id < ${req.query.cursor}`: ""
     const name = `%${req?.query?.search}%`
     const total = await query('SELECT COUNT(*) from public."Items" WHERE name ILIKE $1', [name])
-    const totalCount = parseInt(total.rows[0].count)
-    const {rows} = await query(`SELECT * FROM public."User" WHERE name ILIKE $1 ${cursor} ORDER BY id ASC LIMIT $2`, [name, limit])
-    return res.status(200).json({data: rows, meta: {nextCursor: rows.length ? rows[rows.length - 1].id : null, total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
-        message: "Users found successfully"})
+    const getQuery = `SELECT * FROM public."User" WHERE name ILIKE $1 ${cursor} ORDER BY id ASC LIMIT $2`
+    const result = await particalFetching(req, total, getQuery, [name],
+        "Users found successfully")
+    return res.status(200).json(result)
 }
 
 exports.getUsers = async (req, res) => {
-    const result = await query('SELECT id, email, name, image, role FROM public."User"')
-    res.status(200).json({data: result.rows, message: "User got successfully"});
+    const cursor = req?.query?.cursor ? `WHERE id < ${req.query.cursor}`: ""
+    const total = await query('SELECT COUNT(*) from public."User"')
+    const getQuery = `SELECT id, email, name, image, role FROM public."User" ${cursor}`
+    const result = await particalFetching(req, total, getQuery, [name],"Got users successfully")
+    res.status(200).json(result);
 }
 
 exports.updateUserData = async (req, res) => {

@@ -1,18 +1,16 @@
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import Class from "./CommentsItem.module.css";
 import Uploads from "../../../../../../API/Uploads";
 import trashcan from './icons/trash.png'
 
 import defaultProfile from "..//..//..//..//..//..//DefaultImages/default-profile.jpg";
+import UserContext from "../../../../../../Context/UserContext";
 
-const CommentsItem = ({comment, onDelete}) => {
-
+const CommentsItem = ({comment, onDelete, user}) => {
     const [offset, setOffset] = React.useState(0);
     const startX = useRef(0);
     const dragging = useRef(false);
-    const user = JSON.parse(localStorage.getItem('user'));
     const deletable = (comment?.user_id === user?.id) || (user?.role === 'super' || user?.role === 'admin');
-
     const formattedDate = new Intl.DateTimeFormat('en-US', {
         day: '2-digit',
         month: '2-digit',

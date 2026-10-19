@@ -14,6 +14,7 @@ An online store with a product catalog, shopping cart, and order checkout. A ful
 ![Screenshot](./screenshots/cart.png)
 ![Screenshot](./screenshots/profileAccount.png)
 ![Screenshot](./screenshots/profileOrders.png)
+![Screenshot](./screenshots/profileFavorites.png)
 ![Screenshot](./screenshots/adminUser.png)
 ![Screenshot](./screenshots/adminItems.png)
 

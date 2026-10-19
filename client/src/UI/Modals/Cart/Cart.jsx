@@ -6,12 +6,13 @@ import useFetching from "../../../Hooks/useFetching";
 import CartService from "../../../API/CartService";
 import Loader from "../../GeneralComponents/Loader/Loader";
 import CartContext from "../../../Context/CartContext";
-import {handleRequest} from "../../../utils/handleRequest";
 import OrderService from "../../../API/OrderService";
 import PaymentService from "../../../API/PaymentService";
 import Message from "../Message/Message";
+import {useRequest} from "../../../utils/handleRequest";
 
 const Cart = ({visible, setVisible}) => {
+    const {handleRequest} = useRequest();
     const {cartItems, setCartItems} = useContext(CartContext);
     const [visibleMessage, setVisibleMessage] = useState(false)
     const [message, setMessage] = useState('')

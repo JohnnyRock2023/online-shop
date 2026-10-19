@@ -6,20 +6,20 @@ import Loader from "../../../../GeneralComponents/Loader/Loader";
 import {useParams} from "react-router-dom";
 import Uploads from "../../../../../API/Uploads";
 import TextArea from "../../../../GeneralComponents/FIELDS/TextArea/TextArea";
-import {handleRequest} from "../../../../../utils/handleRequest";
 import usePartialFetching from "../../../../../Hooks/usePartialFetching";
 import LoaderRef from "../../../../GeneralComponents/LoaderRef/LoaderRef";
 import UserContext from "../../../../../Context/UserContext";
 import defaultProfile from '..//..//..//..//..//DefaultImages/default-profile.jpg'
+import {useRequest} from "../../../../../utils/handleRequest";
 
 const Comments = () => {
     const {id} = useParams();
-
     const [text, setText] = useState("");
     const {user} = useContext(UserContext)
     const token = localStorage.getItem('token');
     const maxSymbols = 2000;
     const limit = 10;
+    const {handleRequest} = useRequest();
 
     const loaderRef = useRef(null);
 
@@ -55,7 +55,7 @@ const Comments = () => {
             }
 
             <div className={Class.commentsList}>
-                   {comments && comments?.map(comment => <CommentsItem onDelete={deleteComment} key={comment?.id} comment={comment} />)}
+                   {comments && comments?.map(comment => <CommentsItem onDelete={deleteComment} user={user} key={comment?.id} comment={comment} />)}
                    {isLoading && <Loader/>}
                    {hasMore && <LoaderRef ref={loaderRef}/>}
             </div>

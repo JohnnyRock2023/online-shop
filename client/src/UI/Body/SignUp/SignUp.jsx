@@ -6,10 +6,11 @@ import LoginOther from "../Login/LoginOther/LoginOther";
 import Input from "../../GeneralComponents/FIELDS/Input/Input";
 import Authorization from "../../../API/Authorization";
 import InputHint from "../../GeneralComponents/FIELDS/InputHint/InputHint";
-import {handleRequest} from "../../../utils/handleRequest";
 import UserContext from "../../../Context/UserContext";
+import {useRequest} from "../../../utils/handleRequest";
 
 const BodySignIn = () => {
+    const {handleRequest} = useRequest();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [emailMessage, setEmailMessage] = useState("");

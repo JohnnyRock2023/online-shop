@@ -39,6 +39,7 @@
     flex-direction: row;
     align-items: center;
     padding: 10px 0;
+    gap: 30px;
 }
 
 .itemDetailsBuy__text {
@@ -50,7 +51,7 @@
 }
 
 .itemDetailsBuy__button {
-    margin: 0 50px;
+    margin: 0
 }
 
 .itemDetailsDelivery {
@@ -68,4 +69,12 @@
     font-weight: var(--font-weight-bold);
     font-size: var(--text-xl);
     max-height: 50px;
+}
+
+.like {
+}
+
+.like:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }

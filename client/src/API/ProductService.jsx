@@ -2,11 +2,13 @@ import axios from 'axios';
 
 export default class ProductService {
     static getProducts = async (cursor, page, limit) => {
-        return await axios.get(`${import.meta.env.VITE_API_URL}/api/products`, {params: {page, limit, cursor}});
+        const token = localStorage.getItem('token');
+        return await axios.get(`${import.meta.env.VITE_API_URL}/api/products`, {headers: { Authorization: `Bearer ${token}` }, params: {page, limit, cursor}});
     }
 
     static getProduct = async (id) => {
-        return await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${id}`);
+        const token = localStorage.getItem('token');
+        return await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${id}`, {headers: { Authorization: `Bearer ${token}` }});
     }
 
     static searchProducts = async (search, cursor, page, limit) => {

@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import Class from "./ProductDetails.module.css";
 import CustomButton from "../../../../GeneralComponents/CustomButton/CustomButton";
 import DeliveryList from "../DeliveryList/DeliveryList";
 import CartService from "../../../../../API/CartService";
 import ProductService from "../../../../../API/ProductService";
-import {handleRequest} from "../../../../../utils/handleRequest";
 
 import novapost from './icons/novapost.png'
 import fedex from './icons/fedex.png'
 import meest from './icons/meest.jpg'
+import FavoritesService from "../../../../../API/FavoritesService";
+import redHeart from "../../../Products/ListItem/icons/heart-red.svg";
+import whiteHeart from "../../../Products/ListItem/icons/heart-white.svg";
+import {useRequest} from "../../../../../utils/handleRequest";
+import UserContext from "../../../../../Context/UserContext";
 
 const ProductDetails = ({product, cartItems, setCartItems, inCart, setInCart}) => {
-
+    const {handleRequest} = useRequest();
+    const [image, setImage] = useState(product.isfavorite ? redHeart: whiteHeart);
+    const userContext = useContext(UserContext);
     const deliveries = [{id: 1, name: "Nova post", price: "15", logo: novapost , date: 'Tomorrow'},
         {id: 2, name: "Meest", price: "10",logo: meest, date: 'In 2 days'},
         {id: 3, name: "FedEx", price: "10", logo: fedex, date: 'In 2 days'}]
@@ -32,7 +38,6 @@ const ProductDetails = ({product, cartItems, setCartItems, inCart, setInCart}) =
         }
 
     }
-
     const addCartItem = async () => {
         const token = localStorage.getItem("token");
 
@@ -58,6 +63,21 @@ const ProductDetails = ({product, cartItems, setCartItems, inCart, setInCart}) =
             </div>
             <div className={Class.itemDetailsBuy}>
                 <h2 className={Class.itemDetailsBuy__text}>{product?.price}$</h2>
+                {userContext?.user &&
+                    <img className={Class.like} src={image} onClick={async (e) => {
+                        e.stopPropagation()
+                        if (!product.isfavorite) {
+                            await FavoritesService.addFavorite(product.id)
+                            setImage(redHeart)
+                        }
+                        else {
+                            await FavoritesService.deleteFavorite(product.id)
+                            setImage(whiteHeart);
+                        }
+                        product.isfavorite = !product.isfavorite
+                        }} alt="">
+                    </img>
+                }
                 {inCart ?
                     <CustomButton className={Class.itemDetailsBuy__button} onClick={async () => await removeCartItem()}>
                         Remove from cart

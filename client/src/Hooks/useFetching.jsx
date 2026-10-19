@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useState} from 'react'
-import {handleRequest} from "../utils/handleRequest";
+import {useRequest} from "../utils/handleRequest";
 
 const useFetching = (callback, deps = []) => {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const [result, setResult] = useState(null)
+    const {handleRequest} = useRequest();
 
     const fetchItems = useCallback(
         async () => {

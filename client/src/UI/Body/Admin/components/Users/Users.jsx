@@ -7,15 +7,15 @@ import Message from "../../../../Modals/Message/Message";
 import LabelSelect from "../../../../GeneralComponents/FIELDS/LabelSelect/LabelSelect";
 import ChooseImage from "../../../../GeneralComponents/ChooseImage/ChooseImage";
 import Search from "../../../../GeneralComponents/Search/Search";
-import {handleRequest} from "../../../../../utils/handleRequest";
 import defaultProfile from '../../../../../DefaultImages/default-profile.jpg'
 import Uploads from "../../../../../API/Uploads";
+import {useRequest} from "../../../../../utils/handleRequest";
 
 const Users = () => {
 
     const options = ['user', 'admin', 'super']
     const [user, setUser] = useState("");
-
+    const {handleRequest} = useRequest();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");

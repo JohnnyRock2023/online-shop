@@ -6,7 +6,7 @@ const {getComment} = require('..//db/commentDB')
 const router = require('express').Router();
 
 const checkAdminRoleOrOwner = async (req, res, next) => {
-    const token = decodeToken(req)
+    const token = decodeToken(req, res)
     if (!token) {res.status(401).json({message: 'Not Authorized'})}
     const role = await getRole(token.user_id)
     const comment = await getComment(req?.body?.id)
@@ -19,9 +19,8 @@ const checkAdminRoleOrOwner = async (req, res, next) => {
     }
 }
 
-
-router.get('/products/:productId/comments', asyncHandler(controller.getComments));
-router.post('/products/:productId/comments', asyncHandler(controller.addComment));
+router.get('/product/:productId', asyncHandler(controller.getComments));
+router.post('/product/:productId', asyncHandler(controller.addComment));
 router.delete('/:commentId', checkAdminRoleOrOwner, asyncHandler(controller.deleteComment));
 
 module.exports = router;

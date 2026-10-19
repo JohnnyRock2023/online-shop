@@ -8,6 +8,7 @@ const authRouter = require("./src/routes/auth.js");
 const userRouter = require("./src/routes/user.js");
 const orderRouter = require("./src/routes/order.js");
 const paymentRouter = require("./src/routes/payment.js");
+const favoritesRouter = require("./src/routes/favorites.js");
 
 dotenv.config();
 
@@ -18,13 +19,14 @@ app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/payment', paymentRouter)
-app.use('/api/', commentsRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/comments', commentsRouter)
 app.use('/api/user', userRouter)
+app.use('/api/favorites', favoritesRouter)
 app.use('/api/uploads', express.static('./uploads'))
 
 app.use((err, req, res, next) => {
-    console.error(err)
+    process.env.DEBUG && console.log(err)
     res.status(500).json({message: "Internal Server Error"});
 })
 

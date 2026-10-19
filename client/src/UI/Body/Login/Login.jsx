@@ -4,9 +4,9 @@ import {Link, useNavigate} from "react-router-dom";
 import LoginOther from "./LoginOther/LoginOther";
 import CustomButton from "../../GeneralComponents/CustomButton/CustomButton";
 import Input from "../../GeneralComponents/FIELDS/Input/Input";
-import {handleRequest} from "../../../utils/handleRequest";
 import Authorization from "../../../API/Authorization";
 import UserContext from "../../../Context/UserContext";
+import {useRequest} from "../../../utils/handleRequest";
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -15,7 +15,7 @@ const Login = () => {
     const [passwordMessage, setPasswordMessage] = useState('')
     const navigate = useNavigate();
     const context = useContext(UserContext);
-
+    const {handleRequest} = useRequest();
 
     const login = async () => {
         const {data, error} = await handleRequest(async () => await Authorization.login(email, password))

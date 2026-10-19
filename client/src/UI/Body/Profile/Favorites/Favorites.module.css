@@ -1,0 +1,27 @@
+.favorites {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: auto;
+    max-height: calc(100vh - 70px);
+    width: 100%;
+    padding: 50px 10%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.favorites::-webkit-scrollbar {
+    width: 10px;
+}
+
+.favorites::-webkit-scrollbar-track {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.favorites::-webkit-scrollbar-thumb {
+    background: var(--color-gray-700);
+    border-radius: 99px;
+}

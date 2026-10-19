@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import Class from './Account.module.css'
 import UserContext from "../../../../Context/UserContext";
-import {handleRequest} from "../../../../utils/handleRequest";
 import UserService from "../../../../API/UserService";
 import Message from "../../../Modals/Message/Message";
 import ChooseImage from "../../../GeneralComponents/ChooseImage/ChooseImage";
@@ -9,9 +8,11 @@ import LabelInput from "../../../GeneralComponents/FIELDS/LabelInput/LabelInput"
 import CustomButton from "../../../GeneralComponents/CustomButton/CustomButton";
 import defaultProfile from '..//..//..//..//DefaultImages/default-profile.jpg'
 import Uploads from "../../../../API/Uploads";
+import {useRequest} from "../../../../utils/handleRequest";
 
 
 const Account = () => {
+    const {handleRequest} = useRequest();
     const [image, setImage] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

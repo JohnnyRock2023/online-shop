@@ -51,3 +51,24 @@
     font-family: var(--font-main);
     margin: 20px 20px 0 20px;
 }
+
+.bottomPart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 20px 0 20px;
+}
+
+.like {
+    position:relative;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.like:hover {
+    opacity: 0.7;
+}

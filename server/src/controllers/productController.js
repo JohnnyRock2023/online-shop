@@ -2,6 +2,7 @@ const {query} = require('../db/db.js')
 const {decodeToken} = require("./authContoller");
 const fs = require('fs');
 const path = require("path");
+const {particalFetching} = require("../utils/particalFetching");
 
 const deleteImage = async (id) => {
     const image = await query('SELECT image FROM public."Items" WHERE id = $1', [id])
@@ -19,30 +20,32 @@ const deleteImage = async (id) => {
 }
 
 exports.searchProducts = async (req, res) => {
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(100, parseInt(req.query.limit) || 10);
     const cursor = req?.query?.cursor ? `AND id < ${req.query.cursor}`: ""
     const name = `%${req?.query?.search}%`
     const total = await query('SELECT COUNT(*) from public."Items" WHERE name ILIKE $1', [name])
-    const totalCount = parseInt(total.rows[0].count)
-    const {rows} = await query(`SELECT * FROM public."Items" WHERE name ILIKE $1 ${cursor} ORDER BY id ASC LIMIT $2`, [name, limit])
-    return res.status(200).json({data: rows, meta: {nextCursor: rows.length ? rows[rows.length - 1].id : null, total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
-        message: "Product search results successfully"})
+    const getQuery = `SELECT * FROM public."Items" WHERE name ILIKE $1 ${cursor} ORDER BY id ASC LIMIT $2`
+    const result = await particalFetching(req, total, getQuery, [name],
+        "Product search results successfully")
+    return res.status(200).json(result)
 }
 
 exports.getProducts = async (req, res) => {
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(100, parseInt(req.query.limit) || 10);
-    const cursor = req?.query?.cursor ? `WHERE id < ${req.query.cursor}`: ""
-    const {rows} = await query(`SELECT * FROM public."Items" ${cursor} ORDER BY id ASC`)
+    const token = decodeToken(req, res, true)
+    const cursor = req?.query?.cursor ? `WHERE i.id < ${req.query.cursor}`: ""
+    const authorized = token?.user_id ? `(SELECT 1 FROM public."Favorites" WHERE product_id = i.id AND user_id = ${token?.user_id})` : 'null'
     const total = await query('SELECT COUNT(*) from public."Items"')
-    const totalCount = parseInt(total.rows[0].count)
-    return res.status(200).json({data: rows, meta: {nextCursor: rows.length ? rows[rows.length - 1].id : null,total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)},
-        message: "Products got successfully"})
+    const getQuery =`SELECT i.id, i.name, i.image, i.price, ${authorized} isFavorite 
+                    FROM public."Items" i ${cursor} ORDER BY id ASC LIMIT $1`
+    const result = await particalFetching(req, total, getQuery, [],
+        "Products got successfully")
+    return res.status(200).json(result)
 }
 
 exports.getProduct = async (req, res) => {
-    const result = await query('SELECT * FROM public."Items" WHERE id = $1', [req.params.id])
+    const token = decodeToken(req, res)
+    const authorized = token?.user_id ? `(SELECT 1 FROM public."Favorites" WHERE product_id = i.id AND user_id = $2)` : 'null'
+    const result = await query(`SELECT i.*, ${authorized} isFavorite FROM public."Items" i WHERE i.id = $1`,
+        token?.user_id ? [req.params.id, token.user_id]: [req.params.id])
     return res.status(200).json({data: result.rows[0], message: "Product got successfully"})
 }
 
@@ -78,7 +81,7 @@ exports.deleteProduct = async (req, res) => {
 }
 
 exports.addToCart = async (req, res) => {
-    const token_data = decodeToken(req)
+    const token_data = decodeToken(req, res)
     const [item_id, count] = req.body
     await query('INSERT INTO public."Cart"(user_id, item_id, count) VALUES($1,$2,$3)', [token_data.user_id, item_id, count ])
     return res.status(200).json({message: 'Product added successfully'})

@@ -6,14 +6,14 @@ import CustomButton from "../../../../GeneralComponents/CustomButton/CustomButto
 import ProductService from "../../../../../API/ProductService";
 import Message from "../../../../Modals/Message/Message";
 import ChooseImage from "../../../../GeneralComponents/ChooseImage/ChooseImage";
-import {handleRequest} from "../../../../../utils/handleRequest";
 import Search from "../../../../GeneralComponents/Search/Search";
 import defaultItem from '../../../../../DefaultImages/default-item.png'
 import Uploads from "../../../../../API/Uploads";
+import {useRequest} from "../../../../../utils/handleRequest";
 
 const ProductsAdmin = () => {
     const [item, setItem] = React.useState(null);
-
+    const {handleRequest} = useRequest();
     const [name, setName] = React.useState("");
     const [price, setPrice] = React.useState("");
     const [description, setDescription] = React.useState("");

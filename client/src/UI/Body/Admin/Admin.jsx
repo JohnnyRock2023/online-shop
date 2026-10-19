@@ -22,12 +22,12 @@ const Admin = () => {
         <div className={Class.bodyAdmin}>
             {user && (user?.role === 'admin' || user?.role === 'super') ?
                 <>
-                    <Sidebar options={['Users', 'Items']} option={selectedOption} setOption={setSelectedOption}></Sidebar>
+                    <Sidebar options={['Users', 'Products']} option={selectedOption} setOption={setSelectedOption}></Sidebar>
                     <div className={Class.contentAdmin}>
                         { selectedOption &&
                             {
                                 'Users': <Users></Users>,
-                                'Items': <ProductsAdmin></ProductsAdmin>
+                                'Products': <ProductsAdmin></ProductsAdmin>
                             }[selectedOption]
                         }
                     </div>

@@ -1,15 +1,13 @@
 const {query, connect} = require("../db/db");
 const {decodeToken} = require("./authContoller");
+const {particalFetching} = require("../utils/particalFetching");
 
 exports.getOrders = async (req, res) => {
-    const token = decodeToken(req)
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(100, parseInt(req.query.limit) || 10);
+    const token = decodeToken(req, res)
     const filter = req?.query?.filter && req.query?.filter !== 'all' ? `status = '${req.query?.filter}'`: ``
     const cursor = req?.query?.cursor ? `id < ${req.query.cursor}`: ""
     const total = await query(`SELECT COUNT(*) from public."Order" o WHERE o.user_id = $1 ${filter ? 'AND': ''} ${filter}`, [token.user_id])
-    const totalCount = parseInt(total.rows[0].count)
-    const {rows} = await query(`SELECT o.id order_id, o.status, o.created_at date, oi.price_at_purchase price, oi.quantity, i.image, i.name
+    const getQuery = `SELECT o.id order_id, o.status, o.created_at date, oi.price_at_purchase price, oi.quantity, i.image, i.name
                                         FROM (
                                             SELECT *
                                             FROM public."Order"
@@ -18,18 +16,18 @@ exports.getOrders = async (req, res) => {
                                             ${filter && cursor ? 'AND': ''}
                                             ${cursor}
                                             ORDER BY id DESC
-                                            LIMIT $1
+                                            LIMIT $2
                                             ) o 
                                         JOIN public."Order_item" oi 
                                         ON o.id = oi.order_id 
                                         JOIN public."Items" i 
                                         ON  i.id = oi.item_id
-                                        WHERE user_id = $2
-                                        ORDER BY o.id DESC`, [limit, token.user_id])
+                                        WHERE user_id = $1
+                                        ORDER BY o.id DESC`
+    const result = await particalFetching(req, total, getQuery, [token.user_id],  "Got orders successfully")
     const orders = []
-    for (const row of rows) {
+    for (const row of result.data) {
         let order = orders.find(o => o.orderId === row.order_id);
-
         if (!order) {
             order = {
                 orderId: row.order_id,
@@ -39,7 +37,6 @@ exports.getOrders = async (req, res) => {
             };
             orders.push(order);
         }
-
         order.items.push({
             name: row.name,
             quantity: row.quantity,
@@ -47,19 +44,22 @@ exports.getOrders = async (req, res) => {
             image: row.image
         });
     }
-    return res.status(200).json({data: orders, meta: {nextCursor: orders.length ? orders[orders.length - 1].orderId : null,
-            total: totalCount, page, limit, totalPages: Math.ceil(totalCount / limit)}, message: "Got orders successfully"})
+    result.data = orders;
+    result.meta.nextCursor = orders.length ? orders[orders.length - 1].orderId : null
+    return res.status(200).json(result)
 }
 
 exports.getOrder = async (req, res) => {
-    const [id] = decodeToken(req)
+    const [id] = decodeToken(req, res)
     const {rows: order} = await query('SELECT status, created_at FROM public."Order" WHERE user_id = $1', [id])
-    const {rows: items} = await query(`SELECT i.item_id, i.quantity, i.price_at_purchase FROM public."Order" o JOIN public."Order_item" i ON o.id = i.order_id WHERE o.user_id = $1`, [id])
-    return res.status(200).json({data: {status: order[0].status, created_at: order[0].created_at, items }, message: "Got order successfully"})
+    const {rows: items} = await query(`SELECT i.item_id, i.quantity, i.price_at_purchase FROM public."Order" o 
+             JOIN public."Order_item" i ON o.id = i.order_id WHERE o.user_id = $1`, [id])
+    return res.status(200).json({data: {status: order[0].status, created_at: order[0].created_at, items },
+        message: "Got order successfully"})
 }
 
 exports.addOrder = async (req, res) => {
-    const token = decodeToken(req)
+    const token = decodeToken(req, res)
     const client = await connect()
 
     try {

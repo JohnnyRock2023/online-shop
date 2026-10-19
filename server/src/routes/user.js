@@ -7,7 +7,7 @@ const {decodeToken} = require("../controllers/authContoller");
 const {asyncHandler} = require("../utils/asyncHandler");
 
 const checkOwnerOrSuperRole = async (req, res, next) => {
-    const decodedToken = decodeToken(req);
+    const decodedToken = decodeToken(req, res, true);
     if (!decodedToken) {
         return res.status(401).json({message: "Not Authorized"});
     }

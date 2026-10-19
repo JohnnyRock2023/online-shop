@@ -6,7 +6,7 @@ const {getRole} = require("../controllers/userController");
 const {asyncHandler} = require("../utils/asyncHandler");
 
 const checkAdminRole = async (req, res, next) => {
-    const token = decodeToken(req)
+    const token = decodeToken(req, res)
     if (!token) {res.status(401).json({message: 'Not Authorized'})}
     const role = await getRole(token.user_id)
     if (role === 'admin' || role === 'super') {
